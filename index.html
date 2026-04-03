@@ -1,63 +1,177 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>MR.PY-COBRA • FINAL</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR.PY-COBRA • ULTRA MODE</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#00ffcc}
-body{font-family:Arial,sans-serif;color:#eaffff;background:url('background.png') center/cover fixed no-repeat}
-body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:-1}.nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;padding:10px;background:rgba(0,0,0,.5)} .hero{text-align:center;padding:100px 20px} .hero img{width:140px;border-radius:50%;box-shadow:0 0 25px var(--neon)} .hero h1{color:var(--neon);font-size:3em}
 
-.section{margin:40px;text-align:center} iframe{width:90%;max-width:600px;height:340px;border-radius:12px;border:none}
+body{
+ font-family:Arial;
+ color:#eaffff;
+ background:url('background.png') center/cover fixed no-repeat;
+ transition:.3s;
+}
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.75);
+ z-index:-1;
+}
 
-.btn{display:inline-block;margin:10px;padding:12px 25px;background:linear-gradient(45deg,#00ffcc,#0066ff);color:#fff;text-decoration:none;border-radius:25px}
+.light{background:#fff!important;color:#000!important}
+.light .nav{background:#eee!important}
+.light a{color:#000!important}
 
-/* chat */ .chat-toggle{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:#00ffcc;display:flex;align-items:center;justify-content:center;cursor:pointer} .chat{position:fixed;bottom:90px;right:20px;width:280px;background:#111;border-radius:10px;display:none} .chat header{padding:10px;color:#00ffcc} .chat .msgs{height:150px;overflow:auto;padding:10px} .chat input{width:100%;padding:8px;border:none;background:#000;color:#fff} </style>
+.nav{
+ position:fixed;
+ top:0;width:100%;
+ display:flex;justify-content:space-between;
+ padding:12px;background:rgba(0,0,0,.6)
+}
+.nav a{color:var(--neon);margin:0 10px;text-decoration:none}
+.toggle{background:var(--neon);border:none;padding:5px;border-radius:5px}
 
+.section{padding:100px 20px;text-align:center}
+
+.hero img{
+ width:120px;border-radius:50%;
+ box-shadow:0 0 15px var(--neon)
+}
+.hero h1{color:var(--neon)}
+
+.stats{margin-top:15px;color:var(--neon)}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+ gap:15px;
+ margin-top:30px;
+}
+.card{
+ background:#111;
+ padding:10px;
+ border-radius:10px;
+ transition:.3s;
+ cursor:pointer;
+}
+.card:hover{transform:scale(1.05)}
+.card img{
+ width:100%;
+ border-radius:8px;
+}
+.card p{margin-top:8px;font-size:14px}
+
+iframe{
+ width:90%;
+ max-width:600px;
+ height:320px;
+ border:none;
+ border-radius:10px;
+}
+</style>
 </head>
-<body><div class="nav">
+
+<body>
+
+<div class="nav">
  <div>MR.PY-COBRA</div>
-</div><div class="hero">
+ <div>
+  <a href="#home">Home</a>
+  <a href="#videos">Videos</a>
+  <button class="toggle" onclick="toggleMode()">🌙</button>
+ </div>
+</div>
+
+<div id="home" class="section hero">
  <img src="logo.png">
  <h1>MR.PY-COBRA</h1>
- <p>Stay Relevant</p>
-</div><div class="section">
- <h2>📚 Python Playlist</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" allowfullscreen></iframe>
-</div><div class="section">
- <h2>🐍 Turtle Course</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m" allowfullscreen></iframe>
-</div><div class="section">
- <h2>📩 Contact</h2>
- <p>anubhavshukla7002@gmail.com</p>
-</div><!-- chat --><div class="chat-toggle" onclick="toggleChat()">💬</div>
-<div class="chat" id="chatbox">
- <header>PY-COBRA 🤖</header>
- <div class="msgs" id="msgs"></div>
- <input placeholder="Ask Python..." onkeydown="chat(event)">
-</div><script>
-function toggleChat(){
- let box=document.getElementById('chatbox');
- box.style.display=box.style.display==='block'?'none':'block';
+
+ <div class="stats">
+  <div id="subs">Subscribers: Loading...</div>
+  <div id="views">Views: Loading...</div>
+ </div>
+
+ <h3 style="margin-top:25px">🔥 Latest Video</h3>
+ <iframe id="latest"></iframe>
+</div>
+
+<div id="videos" class="section">
+ <h2>🎬 Latest Uploads</h2>
+ <div class="grid" id="videoGrid"></div>
+</div>
+
+<script>
+const API_KEY="AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
+const CHANNEL_ID="UCGb3jgOzfQsdENrlFWRB_Bw";
+
+function toggleMode(){
+ document.body.classList.toggle("light");
 }
 
-function chat(e){
- if(e.key!=='Enter')return;
- let m=e.target.value;
- let r='Try loops, turtle, functions';
- if(/loop/i.test(m)) r='for i in range(5): print(i)';
- if(/turtle/i.test(m)) r='import turtle';
- if(/function/i.test(m)) r='def f(): pass';
- add('You',m);
- add('Bot',r);
- e.target.value='';
+function animate(id,end){
+ let el=document.getElementById(id);
+ let start=0;
+ let step=end/50;
+
+ let i=setInterval(()=>{
+  start+=step;
+  if(start>=end){
+   start=end;
+   clearInterval(i);
+  }
+  el.innerText=el.innerText.split(":")[0]+": "+Math.floor(start).toLocaleString();
+ },20);
 }
 
-function add(w,t){
- let box=document.getElementById('msgs');
- box.innerHTML+=`<div><b>${w}:</b> ${t}</div>`;
- box.scrollTop=box.scrollHeight;
+async function loadStats(){
+ try{
+  const r=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+  const d=await r.json();
+  const s=d.items[0].statistics;
+
+  animate("subs",parseInt(s.subscriberCount));
+  animate("views",parseInt(s.viewCount));
+
+ }catch{
+  document.getElementById("subs").innerText="Subscribers: Error";
+ }
 }
-</script></body>
-       </html>
+setInterval(loadStats,10000);
+loadStats();
+
+async function loadVideos(){
+ const r=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=6`);
+ const d=await r.json();
+
+ let grid=document.getElementById("videoGrid");
+
+ d.items.forEach((v,i)=>{
+  if(!v.id.videoId) return;
+
+  if(i==0){
+    document.getElementById("latest").src=`https://www.youtube.com/embed/${v.id.videoId}`;
+  }
+
+  grid.innerHTML+=`
+  <div class="card" onclick="play('${v.id.videoId}')">
+    <img src="${v.snippet.thumbnails.medium.url}">
+    <p>${v.snippet.title}</p>
+  </div>`;
+ });
+}
+
+function play(id){
+ document.getElementById("latest").src=`https://www.youtube.com/embed/${id}`;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+loadVideos();
+</script>
+
+</body>
+</html>
