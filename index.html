@@ -2,92 +2,62 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>MR.PY-COBRA • GOD MODE</title>
+<title>MR.PY-COBRA • FINAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--neon:#00ffcc;--bg:#0b0f12;--card:rgba(0,0,0,.55)}
-body{font-family:Arial, sans-serif;color:#eaffff;background:url('background.png') center/cover fixed no-repeat;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:-1}
-canvas{position:fixed;inset:0;z-index:-2}/* NAV */ .nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,255,204,.2)} .nav .brand{color:var(--neon);font-weight:bold} .nav .actions button{margin-left:8px}
+:root{--neon:#00ffcc}
+body{font-family:Arial,sans-serif;color:#eaffff;background:url('background.png') center/cover fixed no-repeat}
+body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:-1}.nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;padding:10px;background:rgba(0,0,0,.5)} .hero{text-align:center;padding:100px 20px} .hero img{width:140px;border-radius:50%;box-shadow:0 0 25px var(--neon)} .hero h1{color:var(--neon);font-size:3em}
 
-/* HERO */ .hero{padding:110px 16px 40px;text-align:center} .hero img{width:140px;border-radius:50%;box-shadow:0 0 30px var(--neon);animation:glow 2s infinite alternate} .hero h1{font-size:3.2em;color:var(--neon);text-shadow:0 0 20px var(--neon)} .typing{margin-top:10px;color:var(--neon);border-right:2px solid var(--neon);white-space:nowrap;overflow:hidden;width:0;animation:typing 4s steps(30,end) forwards,blink 1s infinite}
+.section{margin:40px;text-align:center} iframe{width:90%;max-width:600px;height:340px;border-radius:12px;border:none}
 
-.container{max-width:1200px;margin:auto;padding:0 16px} .section{margin:40px 0} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px} .card{background:var(--card);border:1px solid rgba(0,255,204,.2);border-radius:18px;padding:16px;backdrop-filter:blur(6px);transition:.3s;transform-style:preserve-3d} .card:hover{transform:translateY(-8px) rotateX(3deg) rotateY(-3deg);box-shadow:0 0 30px rgba(0,255,204,.5)}
+.btn{display:inline-block;margin:10px;padding:12px 25px;background:linear-gradient(45deg,#00ffcc,#0066ff);color:#fff;text-decoration:none;border-radius:25px}
 
-.btn{display:inline-block;margin:8px;padding:12px 22px;border-radius:999px;background:linear-gradient(45deg,#00ffcc,#0066ff);color:#fff;text-decoration:none;transition:.25s} .btn:hover{transform:scale(1.1);box-shadow:0 0 18px var(--neon)}
-
-iframe{width:100%;height:300px;border-radius:12px;border:none}
-
-.search{width:100%;max-width:420px;padding:10px 14px;border-radius:999px;border:none;outline:none}
-
-footer{margin:50px 0 20px;text-align:center;color:#9cc}
-
-/* CHATBOT */ .chat{position:fixed;bottom:16px;right:16px;width:300px;background:#0f1418;border:1px solid rgba(0,255,204,.3);border-radius:14px;overflow:hidden} .chat header{padding:10px;background:#0c1115;color:var(--neon)} .chat .msgs{height:200px;overflow:auto;padding:10px;font-size:.9em} .chat input{width:100%;padding:8px;border:none;outline:none;background:#0c1115;color:#fff}
-
-/* TOGGLE */ button{background:#111;border:1px solid var(--neon);color:var(--neon);border-radius:999px;padding:6px 10px;cursor:pointer}
-
-@keyframes glow{from{box-shadow:0 0 10px var(--neon)}to{box-shadow:0 0 35px var(--neon)}} @keyframes typing{from{width:0}to{width:320px}} @keyframes blink{50%{border-color:transparent}} </style>
+/* chat */ .chat-toggle{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:#00ffcc;display:flex;align-items:center;justify-content:center;cursor:pointer} .chat{position:fixed;bottom:90px;right:20px;width:280px;background:#111;border-radius:10px;display:none} .chat header{padding:10px;color:#00ffcc} .chat .msgs{height:150px;overflow:auto;padding:10px} .chat input{width:100%;padding:8px;border:none;background:#000;color:#fff} </style>
 
 </head>
 <body><div class="nav">
-  <div class="brand">MR.PY-COBRA</div>
-  <div class="actions">
-    <button onclick="toggleTheme()">🌙</button>
-    <button onclick="scrollToTop()">⬆️</button>
-  </div>
-</div><canvas id="particles"></canvas>
-
-<section class="hero">
-  <img src="logo.png" alt="logo"/>
-  <h1>MR.PY-COBRA</h1>
-  <div class="typing">Python • Projects • Power ⚡</div>
-  <div style="margin-top:14px">
-    <a class="btn" href="https://youtube.com/playlist?list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" target="_blank">Watch Now</a>
-  </div>
-</section><div class="container">
-  <div class="section">
-    <h2>📺 Featured</h2>
-    <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" allowfullscreen></iframe>
-  </div>  <div class="section">
-    <h2>🔎 Search</h2>
-    <input class="search" id="q" placeholder="Search videos..." onkeyup="filter()"/>
-    <div id="list" class="grid"></div>
-  </div>  <div class="section">
-    <h2>📩 Contact</h2>
-    <div class="card">anubhavshukla7002@gmail.com</div>
-  </div>
-</div><footer>© 2026 MR.PY-COBRA • Stay Relevant</footer><!-- CHATBOT --><div class="chat">
-  <header>Ask PY-COBRA 🤖</header>
-  <div class="msgs" id="msgs"></div>
-  <input placeholder="Ask about Python..." onkeydown="chat(event)"/>
+ <div>MR.PY-COBRA</div>
+</div><div class="hero">
+ <img src="logo.png">
+ <h1>MR.PY-COBRA</h1>
+ <p>Stay Relevant</p>
+</div><div class="section">
+ <h2>📚 Python Playlist</h2>
+ <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" allowfullscreen></iframe>
+</div><div class="section">
+ <h2>🐍 Turtle Course</h2>
+ <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m" allowfullscreen></iframe>
+</div><div class="section">
+ <h2>📩 Contact</h2>
+ <p>anubhavshukla7002@gmail.com</p>
+</div><!-- chat --><div class="chat-toggle" onclick="toggleChat()">💬</div>
+<div class="chat" id="chatbox">
+ <header>PY-COBRA 🤖</header>
+ <div class="msgs" id="msgs"></div>
+ <input placeholder="Ask Python..." onkeydown="chat(event)">
 </div><script>
-// Theme
-document.body.dataset.theme='dark';
-function toggleTheme(){document.body.classList.toggle('light')}
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function toggleChat(){
+ let box=document.getElementById('chatbox');
+ box.style.display=box.style.display==='block'?'none':'block';
+}
 
-// Particles
-const c=document.getElementById('particles'),ctx=c.getContext('2d');
-c.width=innerWidth;c.height=innerHeight;let P=[];for(let i=0;i<160;i++){P.push({x:Math.random()*c.width,y:Math.random()*c.height,s:Math.random()*2,vx:Math.random()-.5,vy:Math.random()-.5})}
-(function a(){ctx.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;ctx.fillStyle='#00ffcc';ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);ctx.fill()});requestAnimationFrame(a)})();
+function chat(e){
+ if(e.key!=='Enter')return;
+ let m=e.target.value;
+ let r='Try loops, turtle, functions';
+ if(/loop/i.test(m)) r='for i in range(5): print(i)';
+ if(/turtle/i.test(m)) r='import turtle';
+ if(/function/i.test(m)) r='def f(): pass';
+ add('You',m);
+ add('Bot',r);
+ e.target.value='';
+}
 
-// Video list (extendable)
-const data=[
- {t:'Part 1 - Intro',id:'dQw4w9WgXcQ'},
- {t:'Part 2 - Screen',id:'dQw4w9WgXcQ'},
- {t:'Part 3 - Shapes',id:'dQw4w9WgXcQ'}
-];
-const el=document.getElementById('list');
-function render(arr){el.innerHTML='';arr.forEach(v=>{el.innerHTML+=`<div class='card'><h3>${v.t}</h3><iframe src='https://www.youtube.com/embed/${v.id}' allowfullscreen></iframe></div>`})}
-function filter(){const q=document.getElementById('q').value.toLowerCase();render(data.filter(v=>v.t.toLowerCase().includes(q)))}
-render(data);
-
-// Simple chatbot (rule-based)
-function chat(e){if(e.key!=='Enter')return;const i=e.target;const m=i.value.trim();if(!m)return;add('You',m);let r='Try: loops, turtle, functions.';
-if(/loop/i.test(m)) r='Use for/while loops. Example: for i in range(5): print(i)';
-if(/turtle/i.test(m)) r='import turtle; t=turtle.Turtle(); t.forward(100)';
-if(/function/i.test(m)) r='def func(x): return x*x';
-add('Bot',r);i.value=''}
-function add(w,t){const box=document.getElementById('msgs');box.innerHTML+=`<div><b>${w}:</b> ${t}</div>`;box.scrollTop=box.scrollHeight}
+function add(w,t){
+ let box=document.getElementById('msgs');
+ box.innerHTML+=`<div><b>${w}:</b> ${t}</div>`;
+ box.scrollTop=box.scrollHeight;
+}
 </script></body>
 </html>
