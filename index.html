@@ -3,19 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR.PY-COBRA • GOD LEVEL MAX</title>
+<title>MR.PY-COBRA • FINAL BOSS</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#00ffcc}
-body{background:#000;color:#eaffff;font-family:Arial}
+body{
+ font-family:Arial;
+ color:#eaffff;
+ overflow-x:hidden;
+ background:radial-gradient(circle at center,#001a18,#000);
+}
 html{scroll-behavior:smooth}
+
+/* CANVAS */
+#bgAnimation{
+ position:fixed;
+ inset:0;
+ z-index:-1;
+}
 
 /* NAV */
 .nav{
  position:fixed;top:0;width:100%;
  display:flex;justify-content:space-between;
- padding:12px;background:rgba(0,0,0,.7);
+ padding:12px;background:rgba(0,0,0,.6);
  backdrop-filter:blur(10px);
 }
 .nav a{color:#00ffcc;margin:0 10px;text-decoration:none}
@@ -23,11 +35,11 @@ html{scroll-behavior:smooth}
 /* SECTION */
 .section{padding:100px 20px;text-align:center}
 
+h1,h2{text-shadow:0 0 10px #00ffcc}
+
 /* HERO */
 .hero img{width:130px;border-radius:50%;animation:float 3s infinite}
 @keyframes float{50%{transform:translateY(-10px)}}
-
-h1,h2{text-shadow:0 0 10px #00ffcc}
 
 /* DASHBOARD */
 .dashboard{
@@ -38,18 +50,12 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 .card{
  background:rgba(255,255,255,0.05);
  padding:20px;border-radius:12px;
- backdrop-filter:blur(10px);
- box-shadow:0 0 10px #00ffcc;
+ box-shadow:0 0 15px #00ffcc;
 }
-.card h3{margin-bottom:10px}
 
 /* SEARCH */
-.search-box{
- margin-top:30px;
-}
 .search-box input{
- padding:10px;width:250px;
- border:none;border-radius:6px;
+ padding:10px;border:none;border-radius:6px;
 }
 
 /* VIDEO GRID */
@@ -69,8 +75,6 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
  transform:scale(1.05);
  box-shadow:0 0 20px #00ffcc;
 }
-.video-card img{width:100%}
-.video-title{padding:10px;font-size:.9em}
 
 /* POPUP */
 #popup{
@@ -85,7 +89,7 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 }
 #popup span{
  position:absolute;top:20px;right:30px;
- font-size:30px;cursor:pointer;color:#00ffcc;
+ font-size:30px;cursor:pointer;
 }
 
 /* NOTES */
@@ -100,13 +104,18 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 }
 
 .btn{
- padding:10px 20px;background:#00ffcc;
- color:#000;border-radius:6px;text-decoration:none
+ padding:10px 20px;
+ background:#00ffcc;
+ color:#000;
+ border-radius:6px;
+ text-decoration:none;
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="bgAnimation"></canvas>
 
 <!-- NAV -->
 <div class="nav">
@@ -129,31 +138,19 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 <!-- DASHBOARD -->
 <div id="dashboard" class="section">
  <h2>📊 Dashboard</h2>
-
  <div class="dashboard">
-  <div class="card">
-   <h3>Subscribers</h3>
-   <p id="subs">0</p>
-  </div>
-  <div class="card">
-   <h3>Views</h3>
-   <p id="views">0</p>
-  </div>
-  <div class="card">
-   <h3>Total Videos</h3>
-   <p id="totalVideos">0</p>
-  </div>
+  <div class="card"><h3>Subscribers</h3><p id="subs">0</p></div>
+  <div class="card"><h3>Views</h3><p id="views">0</p></div>
+  <div class="card"><h3>Videos</h3><p id="totalVideos">0</p></div>
  </div>
 </div>
 
 <!-- VIDEOS -->
 <div id="videos" class="section">
  <h2>🎥 Videos</h2>
-
  <div class="search-box">
-  <input type="text" placeholder="Search videos..." oninput="searchVideos(this.value)">
+  <input type="text" placeholder="Search..." oninput="searchVideos(this.value)">
  </div>
-
  <div id="videoGrid" class="video-grid"></div>
 </div>
 
@@ -162,19 +159,17 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
  <h2>📄 Notes</h2>
 
  <div class="note-card">
-  <h3>Turtle Graphics</h3>
   <iframe src="turtle_graphics_mrpycobra.pdf"></iframe>
   <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>Download</a>
  </div>
 
  <div class="note-card">
-  <h3>Python Basics</h3>
   <iframe src="python_basics_mrpycobra.pdf"></iframe>
   <a href="python_basics_mrpycobra.pdf" class="btn" download>Download</a>
  </div>
 </div>
 
-<!-- VIDEO POPUP -->
+<!-- POPUP -->
 <div id="popup">
  <span onclick="closeVideo()">✖</span>
  <iframe id="player"></iframe>
@@ -182,77 +177,129 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 
 <script>
 
+/* YOUTUBE */
 const API_KEY="AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
 const CHANNEL_ID="UCGb3jgOzfQsdENrlFWRB_Bw";
 
 let allVideos=[];
 
-/* ANIMATE */
 function animate(id,end){
- let i=0;
- let step=Math.ceil(end/100);
+ let i=0,step=Math.ceil(end/100);
  let el=document.getElementById(id);
- let interval=setInterval(()=>{
+ let int=setInterval(()=>{
   i+=step;
-  if(i>=end){i=end;clearInterval(interval);}
+  if(i>=end){i=end;clearInterval(int);}
   el.innerText=i;
  },20);
 }
 
-/* DASHBOARD */
 async function loadDashboard(){
- const res=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
- const data=await res.json();
- const s=data.items[0].statistics;
-
- animate("subs",parseInt(s.subscriberCount));
- animate("views",parseInt(s.viewCount));
- animate("totalVideos",parseInt(s.videoCount));
+ const r=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+ const d=await r.json();
+ let s=d.items[0].statistics;
+ animate("subs",+s.subscriberCount);
+ animate("views",+s.viewCount);
+ animate("totalVideos",+s.videoCount);
 }
 
-/* VIDEOS */
 async function loadVideos(){
- const res=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&maxResults=12`);
- const data=await res.json();
-
- allVideos=data.items.filter(v=>v.id.videoId);
+ const r=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&maxResults=12`);
+ const d=await r.json();
+ allVideos=d.items.filter(v=>v.id.videoId);
  displayVideos(allVideos);
 }
 
-function displayVideos(videos){
- let html="";
- videos.forEach(v=>{
-  html+=`
-  <div class="video-card" onclick="playVideo('${v.id.videoId}')">
-   <img src="${v.snippet.thumbnails.high.url}">
-   <div class="video-title">${v.snippet.title}</div>
-  </div>`;
+function displayVideos(vs){
+ let h="";
+ vs.forEach(v=>{
+  h+=`<div class="video-card" onclick="playVideo('${v.id.videoId}')">
+  <img src="${v.snippet.thumbnails.high.url}">
+  <div class="video-title">${v.snippet.title}</div></div>`;
  });
- document.getElementById("videoGrid").innerHTML=html;
+ videoGrid.innerHTML=h;
 }
 
-/* SEARCH */
-function searchVideos(query){
- let filtered=allVideos.filter(v=>
-  v.snippet.title.toLowerCase().includes(query.toLowerCase())
- );
- displayVideos(filtered);
+function searchVideos(q){
+ displayVideos(allVideos.filter(v=>v.snippet.title.toLowerCase().includes(q.toLowerCase())));
 }
 
-/* PLAYER */
 function playVideo(id){
- document.getElementById("popup").style.display="flex";
- document.getElementById("player").src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+ popup.style.display="flex";
+ player.src=`https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 function closeVideo(){
- document.getElementById("popup").style.display="none";
- document.getElementById("player").src="";
+ popup.style.display="none";
+ player.src="";
 }
 
 loadDashboard();
 loadVideos();
 
+/* INSANE BACKGROUND */
+const c=document.getElementById("bgAnimation");
+const ctx=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+
+let mouse={x:0,y:0};
+window.onmousemove=e=>{mouse.x=e.x;mouse.y=e.y};
+
+let particles=[];
+for(let i=0;i<120;i++){
+ particles.push({
+  x:Math.random()*c.width,
+  y:Math.random()*c.height,
+  dx:(Math.random()-0.5),
+  dy:(Math.random()-0.5)
+ });
+}
+
+function draw(){
+ ctx.clearRect(0,0,c.width,c.height);
+
+ particles.forEach(p=>{
+  p.x+=p.dx;
+  p.y+=p.dy;
+
+  if(p.x<0||p.x>c.width)p.dx*=-1;
+  if(p.y<0||p.y>c.height)p.dy*=-1;
+
+  // draw dot
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,2,0,Math.PI*2);
+  ctx.fillStyle="#00ffcc";
+  ctx.fill();
+
+  // connect lines
+  particles.forEach(p2=>{
+   let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+   if(dist<100){
+    ctx.strokeStyle="rgba(0,255,204,0.1)";
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+    ctx.lineTo(p2.x,p2.y);
+    ctx.stroke();
+   }
+  });
+
+  // mouse interaction
+  let md=Math.hypot(p.x-mouse.x,p.y-mouse.y);
+  if(md<120){
+   p.x+=(mouse.x-p.x)*0.02;
+   p.y+=(mouse.y-p.y)*0.02;
+  }
+ });
+
+ requestAnimationFrame(draw);
+}
+draw();
+
+window.onclick=e=>{
+ for(let i=0;i<10;i++){
+  particles.push({x:e.x,y:e.y,dx:(Math.random()-0.5)*4,dy:(Math.random()-0.5)*4});
+ }
+};
+
 </script>
 
 </body>
- </html>
+   </html>
