@@ -3,32 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR.PY-COBRA • ULTRA FINAL</title>
+<title>MR.PY-COBRA • GOD MODE</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#00ffcc}
+html{scroll-behavior:smooth;}
 
 body{
  font-family:Arial;
  color:#eaffff;
- background:url('background.png') center/cover fixed no-repeat;
-}
-body::before{
- content:"";
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.75);
- z-index:-1
+ background:#000;
+ overflow-x:hidden;
 }
 
+/* INTRO */
+#intro{
+ position:fixed;
+ inset:0;
+ background:#000;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ font-size:2em;
+ color:#00ffcc;
+ z-index:9999;
+}
+
+/* PARTICLES */
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:-1;
+}
+
+/* NAV */
 .nav{
  position:fixed;
  top:0;
  width:100%;
  display:flex;
  justify-content:space-between;
- align-items:center;
  padding:12px;
  background:rgba(0,0,0,.6)
 }
@@ -36,62 +52,93 @@ body::before{
  color:#00ffcc;
  margin:0 10px;
  text-decoration:none;
- font-weight:bold
 }
 
+/* SECTION */
 .section{
  padding:100px 20px;
- text-align:center
+ text-align:center;
+ animation:fadeIn 1s ease-in;
+}
+@keyframes fadeIn{
+ from{opacity:0; transform:translateY(20px);}
+ to{opacity:1;}
 }
 
+/* GLOW */
+h1,h2,h3{
+ text-shadow:0 0 10px #00ffcc;
+}
+
+/* FLOAT LOGO */
 .hero img{
  width:140px;
  border-radius:50%;
- box-shadow:0 0 20px var(--neon)
+ animation:float 3s infinite;
 }
-.hero h1{
- color:var(--neon);
- font-size:3em
-}
-
-iframe{
- width:90%;
- max-width:600px;
- height:340px;
- border-radius:12px;
- border:none
+@keyframes float{
+ 50%{transform:translateY(-10px);}
 }
 
-.stats{
- margin-top:20px;
- font-size:1.2em;
- color:#00ffcc
-}
-
+/* BUTTON */
 .btn{
- display:inline-block;
- margin:10px;
  padding:10px 20px;
  background:#00ffcc;
  color:#000;
+ margin:10px;
+ display:inline-block;
  border-radius:6px;
- text-decoration:none;
- font-weight:bold;
- border:none;
- cursor:pointer;
+ transition:.3s;
+}
+.btn:hover{
+ transform:scale(1.1);
+ box-shadow:0 0 15px #00ffcc;
 }
 
-#user{
+/* NOTES CARD */
+.note-card{
+ margin:30px auto;
+ padding:20px;
+ max-width:700px;
+ background:rgba(0,0,0,0.6);
+ border-radius:12px;
+ box-shadow:0 0 15px #00ffcc;
+ transition:0.3s;
+}
+.note-card:hover{
+ transform:scale(1.02);
+}
+.note-card iframe{
+ width:100%;
+ height:300px;
+ border:none;
+ border-radius:10px;
+ margin:10px 0;
+}
+
+/* SOUND TOGGLE */
+#soundToggle{
  position:fixed;
- top:60px;
- right:20px;
- color:#00ffcc;
- font-weight:bold
+ bottom:20px;
+ left:20px;
+ background:#00ffcc;
+ padding:10px;
+ cursor:pointer;
 }
 </style>
 </head>
 
 <body>
+
+<!-- INTRO -->
+<div id="intro">Initializing MR.PY-COBRA...</div>
+
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- SOUND -->
+<audio id="clickSound" src="click.mp3"></audio>
+<div id="soundToggle">🔊 Sound ON</div>
 
 <!-- NAV -->
 <div class="nav">
@@ -101,148 +148,115 @@ iframe{
   <a href="#about">About</a>
   <a href="#videos">Videos</a>
   <a href="#notes">Notes</a>
-  <a href="#contact">Contact</a>
  </div>
 </div>
-
-<div id="user">Not logged in</div>
 
 <!-- HOME -->
 <div id="home" class="section hero">
  <img src="logo.png">
  <h1>MR.PY-COBRA</h1>
- <p>Stay Relevant</p>
-
- <div class="stats">
-  <div id="subs">Subscribers: Loading...</div>
-  <div id="views">Views: Loading...</div>
- </div>
-
- <br>
- <button class="btn" onclick="login()">🔐 Login with Google</button>
- <button class="btn" onclick="logout()">🚪 Logout</button>
+ <p id="typing"></p>
 </div>
 
 <!-- ABOUT -->
 <div id="about" class="section">
- <h2>About Channel</h2>
- <p>Learn Python from beginner to advanced with easy tutorials.</p>
+ <h2>About</h2>
+ <p>Learn Python in a powerful way.</p>
 </div>
 
 <!-- VIDEOS -->
 <div id="videos" class="section">
- <h2>📚 Python Playlist</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22"></iframe>
-
- <h2 style="margin-top:40px">🐍 Turtle Course</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m"></iframe>
+ <h2>Videos</h2>
+ <iframe width="300" height="200"
+ src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22"></iframe>
 </div>
 
-<!-- NOTES -->
+<!-- NOTES (UPDATED WITH PREVIEW) -->
 <div id="notes" class="section">
- <h2>📄 Notes (Login Required)</h2>
+ <h2>📄 Notes</h2>
 
- <div id="lockedMsg">🔒 Please login to access notes</div>
-
- <div id="notesContent" style="display:none">
-  <h3>Turtle Graphics</h3>
+ <div class="note-card">
+  <h3>🐍 Turtle Graphics</h3>
+  <iframe src="turtle_graphics_mrpycobra.pdf"></iframe>
   <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
+ </div>
 
-  <h3>Python Basics</h3>
+ <div class="note-card">
+  <h3>📘 Python Basics</h3>
+  <iframe src="python_basics_mrpycobra.pdf"></iframe>
   <a href="python_basics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
  </div>
 </div>
 
-<!-- CONTACT -->
-<div id="contact" class="section">
- <h2>Contact</h2>
- <p>anubhavshukla7002@gmail.com</p>
-</div>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
+<!-- JS -->
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCUR1xIb3DxHDhVIgWj2w06Sem_4sHwk4A",
-  authDomain: "mrpycobra-4cdd1.firebaseapp.com",
-  projectId: "mrpycobra-4cdd1",
-  storageBucket: "mrpycobra-4cdd1.firebasestorage.app",
-  messagingSenderId: "221887108675",
-  appId: "1:221887108675:web:b9e0fc1dcea6319ecce6f6"
+
+/* INTRO */
+setTimeout(()=>{
+ document.getElementById("intro").style.display="none";
+},2000);
+
+/* TYPING */
+let text="Stay Relevant...";
+let i=0;
+function type(){
+ if(i<text.length){
+  document.getElementById("typing").innerHTML+=text.charAt(i);
+  i++;
+  setTimeout(type,100);
+ }
+}
+type();
+
+/* SOUND */
+let soundOn=true;
+const sound=document.getElementById("clickSound");
+
+document.getElementById("soundToggle").onclick=()=>{
+ soundOn=!soundOn;
+ document.getElementById("soundToggle").innerText=
+  soundOn?"🔊 Sound ON":"🔇 Sound OFF";
 };
 
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
-
-/* ✅ FIXED LOGIN */
-function login(){
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
-    auth.signInWithRedirect(provider);
-  } else {
-    auth.signInWithPopup(provider);
+document.querySelectorAll("a,.btn").forEach(el=>{
+ el.addEventListener("click",()=>{
+  if(soundOn){
+   sound.currentTime=0;
+   sound.play();
   }
-}
-
-/* LOGOUT */
-function logout(){
-  auth.signOut();
-}
-
-/* HANDLE REDIRECT RESULT */
-auth.getRedirectResult().then((result) => {
-  if (result.user) {
-    console.log("Logged in:", result.user.displayName);
-  }
-}).catch((error) => {
-  console.error(error);
+ });
 });
 
-/* USER STATE */
-auth.onAuthStateChanged(user=>{
- if(user){
-  document.getElementById("user").innerHTML =
-   `<img src="${user.photoURL}" width="30" style="border-radius:50%"> ${user.displayName}`;
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-  document.getElementById("notesContent").style.display="block";
-  document.getElementById("lockedMsg").style.display="none";
- }else{
-  document.getElementById("user").innerText="Not logged in";
-
-  document.getElementById("notesContent").style.display="none";
-  document.getElementById("lockedMsg").style.display="block";
- }
-});
-</script>
-
-<!-- YOUTUBE STATS -->
-<script>
-const API_KEY = "AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
-const CHANNEL_ID = "UCGb3jgOzfQsdENrlFWRB_Bw";
-
-async function loadStats(){
- try{
-  const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
-  const data = await res.json();
-  const stats = data.items[0].statistics;
-
-  document.getElementById('subs').innerText =
-   "Subscribers: " + stats.subscriberCount;
-
-  document.getElementById('views').innerText =
-   "Views: " + stats.viewCount;
-
- }catch{
-  document.getElementById('subs').innerText="Subscribers: Error";
-  document.getElementById('views').innerText="Views: Error";
- }
+let particles=[];
+for(let i=0;i<80;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2
+ });
 }
 
-loadStats();
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="#00ffcc";
+ particles.forEach(p=>{
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  ctx.fill();
+  p.y+=0.5;
+  if(p.y>canvas.height)p.y=0;
+ });
+ requestAnimationFrame(draw);
+}
+draw();
+
 </script>
 
 </body>
- </html>
+</html>
