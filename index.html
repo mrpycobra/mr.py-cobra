@@ -3,149 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR.PY-COBRA • GOD MODE</title>
+<title>MR.PY-COBRA • GOD LEVEL MAX</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#00ffcc}
-html{scroll-behavior:smooth;}
-
-body{
- font-family:Arial;
- color:#eaffff;
- background:#000;
- overflow-x:hidden;
-}
-
-/* INTRO */
-#intro{
- position:fixed;
- inset:0;
- background:#000;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:2em;
- color:#00ffcc;
- z-index:9999;
-}
-
-/* PARTICLES */
-canvas{
- position:fixed;
- top:0;
- left:0;
- z-index:-1;
-}
+body{background:#000;color:#eaffff;font-family:Arial}
+html{scroll-behavior:smooth}
 
 /* NAV */
 .nav{
- position:fixed;
- top:0;
- width:100%;
- display:flex;
- justify-content:space-between;
- padding:12px;
- background:rgba(0,0,0,.6)
+ position:fixed;top:0;width:100%;
+ display:flex;justify-content:space-between;
+ padding:12px;background:rgba(0,0,0,.7);
+ backdrop-filter:blur(10px);
 }
-.nav a{
- color:#00ffcc;
- margin:0 10px;
- text-decoration:none;
-}
+.nav a{color:#00ffcc;margin:0 10px;text-decoration:none}
 
 /* SECTION */
-.section{
- padding:100px 20px;
- text-align:center;
- animation:fadeIn 1s ease-in;
+.section{padding:100px 20px;text-align:center}
+
+/* HERO */
+.hero img{width:130px;border-radius:50%;animation:float 3s infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+h1,h2{text-shadow:0 0 10px #00ffcc}
+
+/* DASHBOARD */
+.dashboard{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ gap:20px;margin-top:30px;
 }
-@keyframes fadeIn{
- from{opacity:0; transform:translateY(20px);}
- to{opacity:1;}
+.card{
+ background:rgba(255,255,255,0.05);
+ padding:20px;border-radius:12px;
+ backdrop-filter:blur(10px);
+ box-shadow:0 0 10px #00ffcc;
+}
+.card h3{margin-bottom:10px}
+
+/* SEARCH */
+.search-box{
+ margin-top:30px;
+}
+.search-box input{
+ padding:10px;width:250px;
+ border:none;border-radius:6px;
 }
 
-/* GLOW */
-h1,h2,h3{
- text-shadow:0 0 10px #00ffcc;
+/* VIDEO GRID */
+.video-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+ gap:20px;margin-top:30px
 }
-
-/* FLOAT LOGO */
-.hero img{
- width:140px;
- border-radius:50%;
- animation:float 3s infinite;
-}
-@keyframes float{
- 50%{transform:translateY(-10px);}
-}
-
-/* BUTTON */
-.btn{
- padding:10px 20px;
- background:#00ffcc;
- color:#000;
- margin:10px;
- display:inline-block;
- border-radius:6px;
+.video-card{
+ background:rgba(255,255,255,0.05);
+ border-radius:12px;
+ overflow:hidden;
+ cursor:pointer;
  transition:.3s;
 }
-.btn:hover{
- transform:scale(1.1);
- box-shadow:0 0 15px #00ffcc;
+.video-card:hover{
+ transform:scale(1.05);
+ box-shadow:0 0 20px #00ffcc;
+}
+.video-card img{width:100%}
+.video-title{padding:10px;font-size:.9em}
+
+/* POPUP */
+#popup{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,.9);
+ display:none;
+ justify-content:center;
+ align-items:center;
+}
+#popup iframe{
+ width:90%;max-width:800px;height:450px;
+}
+#popup span{
+ position:absolute;top:20px;right:30px;
+ font-size:30px;cursor:pointer;color:#00ffcc;
 }
 
-/* NOTES CARD */
+/* NOTES */
 .note-card{
- margin:30px auto;
- padding:20px;
+ margin:30px auto;padding:20px;
  max-width:700px;
- background:rgba(0,0,0,0.6);
+ background:rgba(255,255,255,0.05);
  border-radius:12px;
- box-shadow:0 0 15px #00ffcc;
- transition:0.3s;
-}
-.note-card:hover{
- transform:scale(1.02);
 }
 .note-card iframe{
- width:100%;
- height:300px;
- border:none;
- border-radius:10px;
- margin:10px 0;
+ width:100%;height:300px;border:none;margin:10px 0
 }
 
-/* SOUND TOGGLE */
-#soundToggle{
- position:fixed;
- bottom:20px;
- left:20px;
- background:#00ffcc;
- padding:10px;
- cursor:pointer;
+.btn{
+ padding:10px 20px;background:#00ffcc;
+ color:#000;border-radius:6px;text-decoration:none
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="intro">Initializing MR.PY-COBRA...</div>
-
-<!-- PARTICLES -->
-<canvas id="particles"></canvas>
-
-<!-- SOUND -->
-<audio id="clickSound" src="click.mp3"></audio>
-<div id="soundToggle">🔊 Sound ON</div>
-
 <!-- NAV -->
 <div class="nav">
  <div>MR.PY-COBRA</div>
  <div>
   <a href="#home">Home</a>
-  <a href="#about">About</a>
+  <a href="#dashboard">Dashboard</a>
   <a href="#videos">Videos</a>
   <a href="#notes">Notes</a>
  </div>
@@ -155,108 +123,136 @@ h1,h2,h3{
 <div id="home" class="section hero">
  <img src="logo.png">
  <h1>MR.PY-COBRA</h1>
- <p id="typing"></p>
+ <p>Stay Relevant</p>
 </div>
 
-<!-- ABOUT -->
-<div id="about" class="section">
- <h2>About</h2>
- <p>Learn Python in a powerful way.</p>
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
+ <h2>📊 Dashboard</h2>
+
+ <div class="dashboard">
+  <div class="card">
+   <h3>Subscribers</h3>
+   <p id="subs">0</p>
+  </div>
+  <div class="card">
+   <h3>Views</h3>
+   <p id="views">0</p>
+  </div>
+  <div class="card">
+   <h3>Total Videos</h3>
+   <p id="totalVideos">0</p>
+  </div>
+ </div>
 </div>
 
 <!-- VIDEOS -->
 <div id="videos" class="section">
- <h2>Videos</h2>
- <iframe width="300" height="200"
- src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22"></iframe>
+ <h2>🎥 Videos</h2>
+
+ <div class="search-box">
+  <input type="text" placeholder="Search videos..." oninput="searchVideos(this.value)">
+ </div>
+
+ <div id="videoGrid" class="video-grid"></div>
 </div>
 
-<!-- NOTES (UPDATED WITH PREVIEW) -->
+<!-- NOTES -->
 <div id="notes" class="section">
  <h2>📄 Notes</h2>
 
  <div class="note-card">
-  <h3>🐍 Turtle Graphics</h3>
+  <h3>Turtle Graphics</h3>
   <iframe src="turtle_graphics_mrpycobra.pdf"></iframe>
-  <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
+  <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>Download</a>
  </div>
 
  <div class="note-card">
-  <h3>📘 Python Basics</h3>
+  <h3>Python Basics</h3>
   <iframe src="python_basics_mrpycobra.pdf"></iframe>
-  <a href="python_basics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
+  <a href="python_basics_mrpycobra.pdf" class="btn" download>Download</a>
  </div>
 </div>
 
-<!-- JS -->
+<!-- VIDEO POPUP -->
+<div id="popup">
+ <span onclick="closeVideo()">✖</span>
+ <iframe id="player"></iframe>
+</div>
+
 <script>
 
-/* INTRO */
-setTimeout(()=>{
- document.getElementById("intro").style.display="none";
-},2000);
+const API_KEY="AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
+const CHANNEL_ID="UCGb3jgOzfQsdENrlFWRB_Bw";
 
-/* TYPING */
-let text="Stay Relevant...";
-let i=0;
-function type(){
- if(i<text.length){
-  document.getElementById("typing").innerHTML+=text.charAt(i);
-  i++;
-  setTimeout(type,100);
- }
-}
-type();
+let allVideos=[];
 
-/* SOUND */
-let soundOn=true;
-const sound=document.getElementById("clickSound");
-
-document.getElementById("soundToggle").onclick=()=>{
- soundOn=!soundOn;
- document.getElementById("soundToggle").innerText=
-  soundOn?"🔊 Sound ON":"🔇 Sound OFF";
-};
-
-document.querySelectorAll("a,.btn").forEach(el=>{
- el.addEventListener("click",()=>{
-  if(soundOn){
-   sound.currentTime=0;
-   sound.play();
-  }
- });
-});
-
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<80;i++){
- particles.push({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:Math.random()*2
- });
+/* ANIMATE */
+function animate(id,end){
+ let i=0;
+ let step=Math.ceil(end/100);
+ let el=document.getElementById(id);
+ let interval=setInterval(()=>{
+  i+=step;
+  if(i>=end){i=end;clearInterval(interval);}
+  el.innerText=i;
+ },20);
 }
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- ctx.fillStyle="#00ffcc";
- particles.forEach(p=>{
-  ctx.beginPath();
-  ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-  ctx.fill();
-  p.y+=0.5;
-  if(p.y>canvas.height)p.y=0;
- });
- requestAnimationFrame(draw);
+/* DASHBOARD */
+async function loadDashboard(){
+ const res=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+ const data=await res.json();
+ const s=data.items[0].statistics;
+
+ animate("subs",parseInt(s.subscriberCount));
+ animate("views",parseInt(s.viewCount));
+ animate("totalVideos",parseInt(s.videoCount));
 }
-draw();
+
+/* VIDEOS */
+async function loadVideos(){
+ const res=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&maxResults=12`);
+ const data=await res.json();
+
+ allVideos=data.items.filter(v=>v.id.videoId);
+ displayVideos(allVideos);
+}
+
+function displayVideos(videos){
+ let html="";
+ videos.forEach(v=>{
+  html+=`
+  <div class="video-card" onclick="playVideo('${v.id.videoId}')">
+   <img src="${v.snippet.thumbnails.high.url}">
+   <div class="video-title">${v.snippet.title}</div>
+  </div>`;
+ });
+ document.getElementById("videoGrid").innerHTML=html;
+}
+
+/* SEARCH */
+function searchVideos(query){
+ let filtered=allVideos.filter(v=>
+  v.snippet.title.toLowerCase().includes(query.toLowerCase())
+ );
+ displayVideos(filtered);
+}
+
+/* PLAYER */
+function playVideo(id){
+ document.getElementById("popup").style.display="flex";
+ document.getElementById("player").src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+}
+function closeVideo(){
+ document.getElementById("popup").style.display="none";
+ document.getElementById("player").src="";
+}
+
+loadDashboard();
+loadVideos();
 
 </script>
 
 </body>
-</html>
+ </html>
