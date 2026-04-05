@@ -22,7 +22,6 @@ body::before{
  z-index:-1
 }
 
-/* NAV */
 .nav{
  position:fixed;
  top:0;
@@ -40,13 +39,11 @@ body::before{
  font-weight:bold
 }
 
-/* SECTION */
 .section{
  padding:100px 20px;
  text-align:center
 }
 
-/* HERO */
 .hero img{
  width:140px;
  border-radius:50%;
@@ -57,7 +54,6 @@ body::before{
  font-size:3em
 }
 
-/* IFRAME */
 iframe{
  width:90%;
  max-width:600px;
@@ -66,14 +62,12 @@ iframe{
  border:none
 }
 
-/* STATS */
 .stats{
  margin-top:20px;
  font-size:1.2em;
  color:#00ffcc
 }
 
-/* BUTTON */
 .btn{
  display:inline-block;
  margin:10px;
@@ -82,10 +76,11 @@ iframe{
  color:#000;
  border-radius:6px;
  text-decoration:none;
- font-weight:bold
+ font-weight:bold;
+ border:none;
+ cursor:pointer;
 }
 
-/* LOGIN */
 #user{
  position:fixed;
  top:60px;
@@ -131,7 +126,7 @@ iframe{
 <!-- ABOUT -->
 <div id="about" class="section">
  <h2>About Channel</h2>
- <p>Learn Python from beginner to advanced with easy tutorials, projects and turtle graphics.</p>
+ <p>Learn Python from beginner to advanced with easy tutorials.</p>
 </div>
 
 <!-- VIDEOS -->
@@ -150,13 +145,11 @@ iframe{
  <div id="lockedMsg">🔒 Please login to access notes</div>
 
  <div id="notesContent" style="display:none">
-
   <h3>Turtle Graphics</h3>
   <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
 
   <h3>Python Basics</h3>
   <a href="python_basics_mrpycobra.pdf" class="btn" download>⬇ Download</a>
-
  </div>
 </div>
 
@@ -185,14 +178,30 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+/* ✅ FIXED LOGIN */
 function login(){
- auth.signInWithPopup(provider);
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    auth.signInWithRedirect(provider);
+  } else {
+    auth.signInWithPopup(provider);
+  }
 }
 
+/* LOGOUT */
 function logout(){
- auth.signOut();
+  auth.signOut();
 }
 
+/* HANDLE REDIRECT RESULT */
+auth.getRedirectResult().then((result) => {
+  if (result.user) {
+    console.log("Logged in:", result.user.displayName);
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+/* USER STATE */
 auth.onAuthStateChanged(user=>{
  if(user){
   document.getElementById("user").innerHTML =
@@ -236,4 +245,4 @@ loadStats();
 </script>
 
 </body>
-  </html>
+ </html>
