@@ -3,24 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR.PY-COBRA • FINAL BOSS</title>
+<title>MR.PY-COBRA • ULTRA++ FINAL</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--neon:#00ffcc}
+
 body{
  font-family:Arial;
  color:#eaffff;
+ background:#000;
  overflow-x:hidden;
- background:radial-gradient(circle at center,#001a18,#000);
 }
-html{scroll-behavior:smooth}
 
-/* CANVAS */
 #bgAnimation{
- position:fixed;
- inset:0;
- z-index:-1;
+ position:fixed;inset:0;z-index:-1;
 }
 
 /* NAV */
@@ -34,12 +31,26 @@ html{scroll-behavior:smooth}
 
 /* SECTION */
 .section{padding:100px 20px;text-align:center}
-
 h1,h2{text-shadow:0 0 10px #00ffcc}
 
 /* HERO */
 .hero img{width:130px;border-radius:50%;animation:float 3s infinite}
 @keyframes float{50%{transform:translateY(-10px)}}
+
+/* SUBSCRIBE */
+.yt-subscribe-box{display:flex;justify-content:center;gap:10px;margin:15px 0}
+#subBtn{
+ display:flex;align-items:center;gap:8px;
+ background:#ff0000;color:#fff;border:none;
+ padding:10px 18px;border-radius:25px;
+ cursor:pointer;transition:.3s;
+ box-shadow:0 0 10px red;
+}
+#subBtn img{width:20px;filter:brightness(0) invert(1)}
+#subBtn:hover{transform:scale(1.1)}
+.subscribed{background:#444!important}
+#bell{font-size:22px;cursor:pointer;opacity:.5}
+#bell.active{opacity:1;color:#00ffcc}
 
 /* DASHBOARD */
 .dashboard{
@@ -54,22 +65,18 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 }
 
 /* SEARCH */
-.search-box input{
- padding:10px;border:none;border-radius:6px;
-}
+.search-box input{padding:10px;border:none;border-radius:6px}
 
 /* VIDEO GRID */
 .video-grid{
  display:grid;
  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
- gap:20px;margin-top:30px
+ gap:20px;margin-top:30px;
 }
 .video-card{
  background:rgba(255,255,255,0.05);
- border-radius:12px;
- overflow:hidden;
- cursor:pointer;
- transition:.3s;
+ border-radius:12px;overflow:hidden;
+ cursor:pointer;transition:.3s;
 }
 .video-card:hover{
  transform:scale(1.05);
@@ -78,19 +85,11 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 
 /* POPUP */
 #popup{
- position:fixed;inset:0;
- background:rgba(0,0,0,.9);
- display:none;
- justify-content:center;
- align-items:center;
+ position:fixed;inset:0;background:rgba(0,0,0,.9);
+ display:none;justify-content:center;align-items:center;
 }
-#popup iframe{
- width:90%;max-width:800px;height:450px;
-}
-#popup span{
- position:absolute;top:20px;right:30px;
- font-size:30px;cursor:pointer;
-}
+#popup iframe{width:90%;max-width:800px;height:450px}
+#popup span{position:absolute;top:20px;right:30px;font-size:30px;cursor:pointer}
 
 /* NOTES */
 .note-card{
@@ -100,15 +99,20 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
  border-radius:12px;
 }
 .note-card iframe{
- width:100%;height:300px;border:none;margin:10px 0
+ width:100%;height:300px;border:none;margin:10px 0;
+}
+.btn{
+ padding:10px 20px;background:#00ffcc;
+ color:#000;border-radius:6px;text-decoration:none;
 }
 
-.btn{
- padding:10px 20px;
- background:#00ffcc;
- color:#000;
- border-radius:6px;
- text-decoration:none;
+/* LATEST VIDEO */
+#latestVideo iframe{
+ width:90%;
+ max-width:800px;
+ height:450px;
+ border-radius:12px;
+ box-shadow:0 0 20px #00ffcc;
 }
 </style>
 </head>
@@ -123,6 +127,7 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
  <div>
   <a href="#home">Home</a>
   <a href="#dashboard">Dashboard</a>
+  <a href="#latest">Latest</a>
   <a href="#videos">Videos</a>
   <a href="#notes">Notes</a>
  </div>
@@ -132,6 +137,15 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 <div id="home" class="section hero">
  <img src="logo.png">
  <h1>MR.PY-COBRA</h1>
+
+ <div class="yt-subscribe-box">
+  <button id="subBtn" onclick="toggleSub()">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+    <span id="subText">Subscribe</span>
+  </button>
+  <span id="bell" onclick="ringBell()">🔔</span>
+ </div>
+
  <p>Stay Relevant</p>
 </div>
 
@@ -145,13 +159,27 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
  </div>
 </div>
 
+<!-- LATEST -->
+<div id="latest" class="section">
+ <h2>🔥 Latest Upload</h2>
+ <div id="latestVideo"></div>
+</div>
+
 <!-- VIDEOS -->
 <div id="videos" class="section">
- <h2>🎥 Videos</h2>
+ <h2>🎥 All Videos</h2>
+
  <div class="search-box">
-  <input type="text" placeholder="Search..." oninput="searchVideos(this.value)">
+  <input type="text" placeholder="Search videos..." oninput="searchVideos(this.value)">
  </div>
+
  <div id="videoGrid" class="video-grid"></div>
+
+ <h2 style="margin-top:50px">📚 Python Playlist</h2>
+ <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" allowfullscreen></iframe>
+
+ <h2 style="margin-top:50px">🐍 Turtle Playlist</h2>
+ <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m" allowfullscreen></iframe>
 </div>
 
 <!-- NOTES -->
@@ -167,11 +195,6 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
   <iframe src="python_basics_mrpycobra.pdf"></iframe>
   <a href="python_basics_mrpycobra.pdf" class="btn" download>Download</a>
  </div>
-
- <div class="note-card">
-  <iframe src="fillcolor_all_argument_colors_name.pdf"></iframe>
-  <a href="fillcolor_all_argument_colors_name.pdf" class="btn" download>Download</a>
- </div>
 </div>
 
 <!-- POPUP -->
@@ -182,7 +205,39 @@ h1,h2{text-shadow:0 0 10px #00ffcc}
 
 <script>
 
-/* YOUTUBE */
+/* SUBSCRIBE */
+let isSub = localStorage.getItem("subscribed")==="true";
+let bellOn = localStorage.getItem("bell")==="true";
+
+function toggleSub(){
+ isSub=!isSub;
+ localStorage.setItem("subscribed",isSub);
+ if(isSub){
+  window.open("https://www.youtube.com/@mr_py_cobra_01?sub_confirmation=1");
+ }
+ updateUI();
+}
+
+function ringBell(){
+ if(!isSub) return alert("Subscribe first!");
+ bellOn=!bellOn;
+ localStorage.setItem("bell",bellOn);
+ updateUI();
+}
+
+function updateUI(){
+ let btn=document.getElementById("subBtn");
+ let text=document.getElementById("subText");
+ let bell=document.getElementById("bell");
+
+ if(isSub){btn.classList.add("subscribed");text.innerText="Subscribed";}
+ else{btn.classList.remove("subscribed");text.innerText="Subscribe";}
+
+ bell.classList.toggle("active",bellOn);
+}
+updateUI();
+
+/* YOUTUBE API */
 const API_KEY="AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
 const CHANNEL_ID="UCGb3jgOzfQsdENrlFWRB_Bw";
 
@@ -199,8 +254,8 @@ function animate(id,end){
 }
 
 async function loadDashboard(){
- const r=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
- const d=await r.json();
+ let r=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+ let d=await r.json();
  let s=d.items[0].statistics;
  animate("subs",+s.subscriberCount);
  animate("views",+s.viewCount);
@@ -208,9 +263,18 @@ async function loadDashboard(){
 }
 
 async function loadVideos(){
- const r=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&maxResults=12`);
- const d=await r.json();
- allVideos=d.items.filter(v=>v.id.videoId);
+ let r=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=13`);
+ let d=await r.json();
+
+ let videos=d.items.filter(v=>v.id.videoId);
+
+ // Latest
+ let latest=videos[0];
+ document.getElementById("latestVideo").innerHTML =
+  `<iframe src="https://www.youtube.com/embed/${latest.id.videoId}" allowfullscreen></iframe>`;
+
+ // Rest
+ allVideos=videos.slice(1);
  displayVideos(allVideos);
 }
 
@@ -219,7 +283,7 @@ function displayVideos(vs){
  vs.forEach(v=>{
   h+=`<div class="video-card" onclick="playVideo('${v.id.videoId}')">
   <img src="${v.snippet.thumbnails.high.url}">
-  <div class="video-title">${v.snippet.title}</div></div>`;
+  <div>${v.snippet.title}</div></div>`;
  });
  videoGrid.innerHTML=h;
 }
@@ -246,38 +310,28 @@ const ctx=c.getContext("2d");
 c.width=innerWidth;c.height=innerHeight;
 
 let mouse={x:0,y:0};
-window.onmousemove=e=>{mouse.x=e.x;mouse.y=e.y};
+onmousemove=e=>{mouse.x=e.x;mouse.y=e.y};
 
 let particles=[];
 for(let i=0;i<120;i++){
- particles.push({
-  x:Math.random()*c.width,
-  y:Math.random()*c.height,
-  dx:(Math.random()-0.5),
-  dy:(Math.random()-0.5)
- });
+ particles.push({x:Math.random()*c.width,y:Math.random()*c.height,dx:(Math.random()-0.5),dy:(Math.random()-0.5)});
 }
 
 function draw(){
  ctx.clearRect(0,0,c.width,c.height);
-
  particles.forEach(p=>{
-  p.x+=p.dx;
-  p.y+=p.dy;
-
+  p.x+=p.dx;p.y+=p.dy;
   if(p.x<0||p.x>c.width)p.dx*=-1;
   if(p.y<0||p.y>c.height)p.dy*=-1;
 
-  // draw dot
   ctx.beginPath();
   ctx.arc(p.x,p.y,2,0,Math.PI*2);
   ctx.fillStyle="#00ffcc";
   ctx.fill();
 
-  // connect lines
   particles.forEach(p2=>{
-   let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
-   if(dist<100){
+   let d=Math.hypot(p.x-p2.x,p.y-p2.y);
+   if(d<100){
     ctx.strokeStyle="rgba(0,255,204,0.1)";
     ctx.beginPath();
     ctx.moveTo(p.x,p.y);
@@ -286,19 +340,17 @@ function draw(){
    }
   });
 
-  // mouse interaction
   let md=Math.hypot(p.x-mouse.x,p.y-mouse.y);
   if(md<120){
    p.x+=(mouse.x-p.x)*0.02;
    p.y+=(mouse.y-p.y)*0.02;
   }
  });
-
  requestAnimationFrame(draw);
 }
 draw();
 
-window.onclick=e=>{
+onclick=e=>{
  for(let i=0;i<10;i++){
   particles.push({x:e.x,y:e.y,dx:(Math.random()-0.5)*4,dy:(Math.random()-0.5)*4});
  }
@@ -307,4 +359,4 @@ window.onclick=e=>{
 </script>
 
 </body>
-   </html>
+ </html>
