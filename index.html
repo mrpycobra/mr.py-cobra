@@ -1,376 +1,3105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <title>MR.PY-COBRA • ULTRA++ FINAL</title>
 
- <link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<meta name="theme-color" content="#00ffcc">
- 
+<link
+    rel="icon"
+    type="image/png"
+    href="logo.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="logo.png"
+>
+
+<meta
+    name="theme-color"
+    content="#00ffcc"
+>
+
+
+<!-- =====================================================
+     PYODIDE PYTHON RUNTIME
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.29.1/full/pyodide.js"></script>
+
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--neon:#00ffcc}
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --neon:#00ffcc;
+    --green:#22c55e;
+    --green2:#4ade80;
+    --red:#ef4444;
+    --blue:#38bdf8;
+    --purple:#a78bfa;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
- font-family:Arial;
- color:#eaffff;
- background:#000;
- overflow-x:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#eaffff;
+    background:#000;
+    overflow-x:hidden;
 }
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
 
 #bgAnimation{
- position:fixed;inset:0;z-index:-1;
+    position:fixed;
+    inset:0;
+    z-index:-1;
 }
 
-/* NAV */
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
 .nav{
- position:fixed;top:0;width:100%;
- display:flex;justify-content:space-between;
- padding:12px;background:rgba(0,0,0,.6);
- backdrop-filter:blur(10px);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:12px 18px;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(0,255,204,.15);
+
+    z-index:1000;
 }
-.nav a{color:#00ffcc;margin:0 10px;text-decoration:none}
 
-/* SECTION */
-.section{padding:100px 20px;text-align:center}
-h1,h2{text-shadow:0 0 10px #00ffcc}
+.nav-brand{
+    font-weight:bold;
+    color:var(--neon);
 
-/* HERO */
-.hero img{width:130px;border-radius:50%;animation:float 3s infinite}
-@keyframes float{50%{transform:translateY(-10px)}}
+    text-shadow:
+        0 0 8px var(--neon),
+        0 0 20px rgba(0,255,204,.3);
+}
 
-/* SUBSCRIBE */
-.yt-subscribe-box{display:flex;justify-content:center;gap:10px;margin:15px 0}
+.nav-links{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.nav a{
+    color:var(--neon);
+    margin:0 8px;
+    text-decoration:none;
+    transition:.25s;
+}
+
+.nav a:hover{
+    color:white;
+
+    text-shadow:
+        0 0 8px var(--neon);
+
+    transform:translateY(-1px);
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section{
+    padding:100px 20px;
+    text-align:center;
+}
+
+h1,
+h2{
+    text-shadow:
+        0 0 10px var(--neon);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero img{
+    width:130px;
+
+    border-radius:50%;
+
+    animation:
+        float 3s infinite ease-in-out;
+
+    box-shadow:
+        0 0 20px var(--neon),
+        0 0 50px rgba(0,255,204,.25);
+}
+
+@keyframes float{
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+}
+
+
+/* =====================================================
+   SUBSCRIBE
+===================================================== */
+
+.yt-subscribe-box{
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:10px;
+
+    margin:15px 0;
+}
+
 #subBtn{
- display:flex;align-items:center;gap:8px;
- background:#ff0000;color:#fff;border:none;
- padding:10px 18px;border-radius:25px;
- cursor:pointer;transition:.3s;
- box-shadow:0 0 10px red;
-}
-#subBtn img{width:20px;filter:brightness(0) invert(1)}
-#subBtn:hover{transform:scale(1.1)}
-.subscribed{background:#444!important}
-#bell{font-size:22px;cursor:pointer;opacity:.5}
-#bell.active{opacity:1;color:#00ffcc}
+    display:flex;
+    align-items:center;
+    gap:8px;
 
-/* DASHBOARD */
+    background:#ff0000;
+    color:#fff;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 0 10px red;
+}
+
+#subBtn img{
+    width:20px;
+
+    filter:
+        brightness(0)
+        invert(1);
+}
+
+#subBtn:hover{
+    transform:
+        scale(1.1);
+}
+
+.subscribed{
+    background:#444!important;
+}
+
+#bell{
+    font-size:22px;
+    cursor:pointer;
+    opacity:.5;
+}
+
+#bell.active{
+    opacity:1;
+    color:var(--neon);
+
+    text-shadow:
+        0 0 10px var(--neon);
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
 .dashboard{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
- gap:20px;margin-top:30px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(200px,1fr)
+        );
+
+    gap:20px;
+
+    margin-top:30px;
 }
+
 .card{
- background:rgba(255,255,255,0.05);
- padding:20px;border-radius:12px;
- box-shadow:0 0 15px #00ffcc;
+    background:
+        rgba(255,255,255,.05);
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 0 15px var(--neon);
+
+    transition:.3s;
 }
 
-/* SEARCH */
-.search-box input{padding:10px;border:none;border-radius:6px}
+.card:hover{
+    transform:
+        translateY(-6px);
 
-/* VIDEO GRID */
+    box-shadow:
+        0 0 25px var(--neon);
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box input{
+    padding:10px;
+
+    border:none;
+
+    border-radius:6px;
+
+    outline:none;
+}
+
+
+/* =====================================================
+   VIDEO GRID
+===================================================== */
+
 .video-grid{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
- gap:20px;margin-top:30px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px,1fr)
+        );
+
+    gap:20px;
+
+    margin-top:30px;
 }
+
 .video-card{
- background:rgba(255,255,255,0.05);
- border-radius:12px;overflow:hidden;
- cursor:pointer;transition:.3s;
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.3s;
 }
+
+.video-card img{
+    width:100%;
+    display:block;
+}
+
+.video-card div{
+    padding:12px;
+}
+
 .video-card:hover{
- transform:scale(1.05);
- box-shadow:0 0 20px #00ffcc;
+    transform:
+        scale(1.05);
+
+    box-shadow:
+        0 0 20px var(--neon);
 }
 
-/* POPUP */
+
+/* =====================================================
+   PLAYLIST IFRAMES
+===================================================== */
+
+#videos > iframe{
+    width:90%;
+    max-width:800px;
+    height:450px;
+
+    border:none;
+
+    border-radius:12px;
+
+    margin-top:20px;
+
+    box-shadow:
+        0 0 20px var(--neon);
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
 #popup{
- position:fixed;inset:0;background:rgba(0,0,0,.9);
- display:none;justify-content:center;align-items:center;
-}
-#popup iframe{width:90%;max-width:800px;height:450px}
-#popup span{position:absolute;top:20px;right:30px;font-size:30px;cursor:pointer}
+    position:fixed;
+    inset:0;
 
-/* NOTES */
+    background:
+        rgba(0,0,0,.92);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:2000;
+}
+
+#popup iframe{
+    width:90%;
+    max-width:800px;
+    height:450px;
+
+    border:none;
+
+    border-radius:12px;
+}
+
+#popup span{
+    position:absolute;
+
+    top:20px;
+    right:30px;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    color:white;
+}
+
+
+/* =====================================================
+   NOTES
+===================================================== */
+
 .note-card{
- margin:30px auto;padding:20px;
- max-width:700px;
- background:rgba(255,255,255,0.05);
- border-radius:12px;
-}
-.note-card iframe{
- width:100%;height:300px;border:none;margin:10px 0;
-}
-.btn{
- padding:10px 20px;background:#00ffcc;
- color:#000;border-radius:6px;text-decoration:none;
+    margin:30px auto;
+
+    padding:20px;
+
+    max-width:700px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius:12px;
+
+    box-shadow:
+        0 0 10px rgba(0,255,204,.2);
 }
 
-/* LATEST VIDEO */
-#latestVideo iframe{
- width:90%;
- max-width:800px;
- height:450px;
- border-radius:12px;
- box-shadow:0 0 20px #00ffcc;
+.note-card iframe{
+    width:100%;
+    height:300px;
+
+    border:none;
+
+    margin:10px 0;
 }
+
+.btn{
+    display:inline-block;
+
+    padding:10px 20px;
+
+    background:
+        var(--neon);
+
+    color:#000;
+
+    border-radius:6px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:
+        scale(1.08);
+
+    box-shadow:
+        0 0 15px var(--neon);
+}
+
+
+/* =====================================================
+   LATEST VIDEO
+===================================================== */
+
+#latestVideo iframe{
+    width:90%;
+    max-width:800px;
+    height:450px;
+
+    border:none;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 0 20px var(--neon);
+}
+
+
+/* =====================================================
+   PYTHON PLAYGROUND
+===================================================== */
+
+#python{
+    position:relative;
+}
+
+
+/* Playground heading */
+
+.python-subtitle{
+    margin-top:10px;
+
+    color:#9edbd2;
+
+    font-size:14px;
+}
+
+
+/* Playground */
+
+.python-playground{
+    width:100%;
+    max-width:1400px;
+
+    margin:35px auto 0;
+
+    text-align:left;
+
+    background:
+        rgba(5,10,15,.92);
+
+    border:
+        1px solid rgba(0,255,204,.35);
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 0 25px rgba(0,255,204,.15),
+        0 20px 60px rgba(0,0,0,.45);
+}
+
+
+/* Playground top */
+
+.python-topbar{
+    min-height:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:10px 16px;
+
+    background:
+        rgba(10,20,25,.95);
+
+    border-bottom:
+        1px solid rgba(0,255,204,.15);
+}
+
+.python-title{
+    color:var(--neon);
+
+    font-weight:bold;
+
+    text-shadow:
+        0 0 8px var(--neon);
+}
+
+.python-status{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#8da6a2;
+
+    font-size:12px;
+}
+
+.python-status-dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#f59e0b;
+
+    box-shadow:
+        0 0 8px #f59e0b;
+}
+
+.python-status-dot.ready{
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 8px var(--green),
+        0 0 18px rgba(34,197,94,.5);
+}
+
+
+/* =====================================================
+   PYTHON TOOLBAR
+===================================================== */
+
+.python-toolbar{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    padding:14px;
+
+    background:
+        rgba(8,14,19,.95);
+
+    border-bottom:
+        1px solid rgba(0,255,204,.12);
+}
+
+
+/* Dynamic buttons */
+
+.py-btn{
+    position:relative;
+
+    height:44px;
+
+    min-width:110px;
+
+    padding:0 16px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #14212a,
+            #0a1117
+        );
+
+    border:
+        1px solid #304653;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        border-color .2s,
+        background .2s;
+}
+
+
+/* Moving shine */
+
+.py-btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:-40%;
+
+    left:-100px;
+
+    width:65px;
+
+    height:180%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left .55s;
+}
+
+.py-btn:hover::before{
+    left:140%;
+}
+
+.py-btn:hover{
+    transform:
+        translateY(-3px)
+        scale(1.02);
+}
+
+.py-btn:active{
+    transform:
+        scale(.95);
+}
+
+
+/* Run */
+
+.py-run{
+    min-width:145px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087f3c,
+            #16c55b
+        );
+
+    border-color:
+        #20d968;
+
+    box-shadow:
+        0 0 10px
+        rgba(0,255,100,.15);
+}
+
+.py-run:hover{
+    box-shadow:
+        0 0 20px
+        rgba(0,255,100,.45),
+        0 0 40px
+        rgba(0,255,100,.12);
+}
+
+.py-run.running{
+    pointer-events:none;
+
+    animation:
+        pyRunPulse 1.2s infinite;
+}
+
+@keyframes pyRunPulse{
+
+    0%,
+    100%{
+        box-shadow:
+            0 0 8px
+            rgba(0,255,100,.2);
+    }
+
+    50%{
+        box-shadow:
+            0 0 28px
+            rgba(0,255,100,.65);
+    }
+
+}
+
+
+/* Clear */
+
+.py-clear:hover{
+    border-color:
+        var(--red);
+
+    color:#fecaca;
+
+    box-shadow:
+        0 0 18px
+        rgba(239,68,68,.3);
+}
+
+
+/* Copy */
+
+.py-copy:hover{
+    border-color:
+        var(--blue);
+
+    color:#bae6fd;
+
+    box-shadow:
+        0 0 18px
+        rgba(56,189,248,.3);
+}
+
+.py-copy.copied{
+    background:#14532d;
+
+    border-color:
+        var(--green);
+
+    color:#86efac;
+
+    animation:
+        copied .35s ease;
+}
+
+@keyframes copied{
+
+    50%{
+        transform:
+            scale(1.08);
+    }
+
+}
+
+
+/* Example */
+
+.py-example:hover{
+    border-color:
+        var(--purple);
+
+    color:#ddd6fe;
+
+    box-shadow:
+        0 0 18px
+        rgba(167,139,250,.3);
+}
+
+
+/* Example select */
+
+#pythonExample{
+    height:44px;
+
+    padding:0 14px;
+
+    border-radius:9px;
+
+    border:
+        1px solid #304653;
+
+    background:#101b24;
+
+    color:white;
+
+    outline:none;
+
+    cursor:pointer;
+}
+
+#pythonExample:hover,
+#pythonExample:focus{
+    border-color:
+        var(--purple);
+
+    box-shadow:
+        0 0 15px
+        rgba(167,139,250,.2);
+}
+
+
+/* =====================================================
+   PYTHON WORKSPACE
+===================================================== */
+
+.python-workspace{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:1px;
+
+    background:
+        rgba(0,255,204,.12);
+}
+
+
+/* Editor */
+
+.python-editor-panel,
+.python-output-panel{
+    min-width:0;
+
+    background:#05090d;
+}
+
+.python-panel-header{
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 14px;
+
+    background:
+        #0d171e;
+
+    border-bottom:
+        1px solid rgba(0,255,204,.12);
+
+    color:#d9ffff;
+
+    font-size:12px;
+}
+
+#pythonEditor{
+    display:block;
+
+    width:100%;
+
+    height:500px;
+
+    padding:18px;
+
+    resize:vertical;
+
+    border:none;
+
+    outline:none;
+
+    background:#05090d;
+
+    color:#c9ffe8;
+
+    caret-color:
+        var(--neon);
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    tab-size:4;
+}
+
+#pythonEditor::selection{
+    background:
+        rgba(0,255,204,.22);
+}
+
+
+/* Output */
+
+#pythonOutput{
+    width:100%;
+
+    height:500px;
+
+    padding:18px;
+
+    overflow:auto;
+
+    background:#030608;
+
+    color:#c9ffe8;
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+}
+
+.python-placeholder{
+    color:#4c6664;
+}
+
+.python-success{
+    color:#86efac;
+}
+
+.python-error{
+    color:#fca5a5;
+}
+
+
+/* Ripple */
+
+.py-ripple{
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.35);
+
+    transform:
+        scale(0);
+
+    animation:
+        pyRipple .55s linear;
+
+    pointer-events:none;
+}
+
+@keyframes pyRipple{
+
+    to{
+        transform:
+            scale(4);
+
+        opacity:0;
+    }
+
+}
+
+
+/* =====================================================
+   PYTHON FOOTER
+===================================================== */
+
+.python-footer{
+    padding:10px 15px;
+
+    color:#526b68;
+
+    font-size:11px;
+
+    background:#081016;
+
+    border-top:
+        1px solid rgba(0,255,204,.08);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:800px){
+
+    .nav{
+        position:relative;
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+    .nav-links{
+        justify-content:center;
+    }
+
+    .section{
+        padding:
+            80px 15px;
+    }
+
+    .python-workspace{
+        grid-template-columns:
+            1fr;
+    }
+
+    #pythonEditor,
+    #pythonOutput{
+        height:380px;
+    }
+
+    #latestVideo iframe,
+    #videos > iframe{
+        height:300px;
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    .python-toolbar{
+        display:grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .py-btn,
+    #pythonExample{
+        width:100%;
+    }
+
+    .py-run{
+        grid-column:
+            span 2;
+    }
+
+    .nav a{
+        font-size:12px;
+        margin:0 4px;
+    }
+
+    .hero img{
+        width:105px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
 <canvas id="bgAnimation"></canvas>
 
-<!-- NAV -->
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
 <div class="nav">
- <div>MR.PY-COBRA</div>
- <div>
-  <a href="#home">Home</a>
-  <a href="#dashboard">Dashboard</a>
-  <a href="#latest">Latest</a>
-  <a href="#videos">Videos</a>
-  <a href="#notes">Notes</a>
- </div>
+
+    <div class="nav-brand">
+        MR.PY-COBRA
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#dashboard">
+            Dashboard
+        </a>
+
+        <a href="#latest">
+            Latest
+        </a>
+
+        <a href="#videos">
+            Videos
+        </a>
+
+        <a href="#python">
+            🐍 Python
+        </a>
+
+        <a href="#notes">
+            Notes
+        </a>
+
+    </div>
+
 </div>
 
-<!-- HOME -->
-<div id="home" class="section hero">
- <img src="logo.png">
- <h1>MR.PY-COBRA</h1>
 
- <div class="yt-subscribe-box">
-  <button id="subBtn" onclick="toggleSub()">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-    <span id="subText">Subscribe</span>
-  </button>
-  <span id="bell" onclick="ringBell()">🔔</span>
- </div>
+<!-- =====================================================
+     HOME
+===================================================== -->
 
- <p>Stay Relevant</p>
+<div
+    id="home"
+    class="section hero"
+>
+
+    <img src="logo.png">
+
+    <h1>
+        MR.PY-COBRA
+    </h1>
+
+
+    <div class="yt-subscribe-box">
+
+        <button
+            id="subBtn"
+            onclick="toggleSub()"
+        >
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+            >
+
+            <span id="subText">
+                Subscribe
+            </span>
+
+        </button>
+
+
+        <span
+            id="bell"
+            onclick="ringBell()"
+        >
+            🔔
+        </span>
+
+    </div>
+
+
+    <p>
+        Stay Relevant
+    </p>
+
 </div>
 
-<!-- DASHBOARD -->
-<div id="dashboard" class="section">
- <h2>📊 Dashboard</h2>
- <div class="dashboard">
-  <div class="card"><h3>Subscribers</h3><p id="subs">0</p></div>
-  <div class="card"><h3>Views</h3><p id="views">0</p></div>
-  <div class="card"><h3>Videos</h3><p id="totalVideos">0</p></div>
- </div>
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<div
+    id="dashboard"
+    class="section"
+>
+
+    <h2>
+        📊 Dashboard
+    </h2>
+
+
+    <div class="dashboard">
+
+        <div class="card">
+
+            <h3>
+                Subscribers
+            </h3>
+
+            <p id="subs">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Views
+            </h3>
+
+            <p id="views">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Videos
+            </h3>
+
+            <p id="totalVideos">
+                0
+            </p>
+
+        </div>
+
+    </div>
+
 </div>
 
-<!-- LATEST -->
-<div id="latest" class="section">
- <h2>🔥 Latest Upload</h2>
- <div id="latestVideo"></div>
+
+<!-- =====================================================
+     LATEST
+===================================================== -->
+
+<div
+    id="latest"
+    class="section"
+>
+
+    <h2>
+        🔥 Latest Upload
+    </h2>
+
+    <div id="latestVideo"></div>
+
 </div>
 
-<!-- VIDEOS -->
-<div id="videos" class="section">
- <h2>🎥 All Videos</h2>
 
- <div class="search-box">
-  <input type="text" placeholder="Search videos..." oninput="searchVideos(this.value)">
- </div>
+<!-- =====================================================
+     VIDEOS
+===================================================== -->
 
- <div id="videoGrid" class="video-grid"></div>
+<div
+    id="videos"
+    class="section"
+>
 
- <h2 style="margin-top:50px">📚 Python Playlist</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22" allowfullscreen></iframe>
+    <h2>
+        🎥 All Videos
+    </h2>
 
- <h2 style="margin-top:50px">🐍 Turtle Playlist</h2>
- <iframe src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m" allowfullscreen></iframe>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            placeholder="Search videos..."
+            oninput="searchVideos(this.value)"
+        >
+
+    </div>
+
+
+    <div
+        id="videoGrid"
+        class="video-grid"
+    ></div>
+
+
+    <h2 style="margin-top:50px">
+        📚 Python Playlist
+    </h2>
+
+
+    <iframe
+        src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22"
+        allowfullscreen
+    ></iframe>
+
+
+    <h2 style="margin-top:50px">
+        🐢 Turtle Playlist
+    </h2>
+
+
+    <iframe
+        src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m"
+        allowfullscreen
+    ></iframe>
+
 </div>
 
-<!-- NOTES -->
-<div id="notes" class="section">
- <h2>📄 Notes</h2>
 
- <div class="note-card">
-  <iframe src="turtle_graphics_mrpycobra.pdf"></iframe>
-  <a href="turtle_graphics_mrpycobra.pdf" class="btn" download>Download</a>
- </div>
+<!-- =====================================================
+     PYTHON PLAYGROUND
+===================================================== -->
 
- <div class="note-card">
-  <iframe src="python_basics_mrpycobra.pdf"></iframe>
-  <a href="python_basics_mrpycobra.pdf" class="btn" download>Download</a>
- </div>
+<div
+    id="python"
+    class="section"
+>
 
- <div class="note-card">
-  <iframe src="fillcolor_all_argument_colors_name.pdf"></iframe>
-  <a href="fillcolor_all_argument_colors_name.pdf" class="btn" download>Download</a>
- </div>
+    <h2>
+        🐍 Python Playground
+    </h2>
 
- <div class="note-card">
-  <iframe src="Turtle_Python_Fonts_Guide.pdf"></iframe>
-  <a href="Turtle_Python_Fonts_Guide.pdf" class="btn" download>Download</a>
- </div>
+    <p class="python-subtitle">
+        Write Python code and run it directly in your browser.
+    </p>
+
+
+    <div class="python-playground">
+
+
+        <!-- TOP -->
+
+        <div class="python-topbar">
+
+            <div class="python-title">
+                MR.PY-COBRA CODE LAB
+            </div>
+
+
+            <div class="python-status">
+
+                <span
+                    id="pythonStatusDot"
+                    class="python-status-dot"
+                ></span>
+
+                <span id="pythonStatus">
+                    Loading Python...
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOOLBAR -->
+
+        <div class="python-toolbar">
+
+
+            <button
+                id="pythonRun"
+                class="py-btn py-run"
+            >
+
+                <span id="pythonRunIcon">
+                    ▶
+                </span>
+
+                <span id="pythonRunText">
+                    Run Python
+                </span>
+
+            </button>
+
+
+            <button
+                id="pythonClear"
+                class="py-btn py-clear"
+            >
+
+                🗑
+
+                <span>
+                    Clear
+                </span>
+
+            </button>
+
+
+            <button
+                id="pythonCopy"
+                class="py-btn py-copy"
+            >
+
+                📋
+
+                <span>
+                    Copy
+                </span>
+
+            </button>
+
+
+            <button
+                id="pythonExampleBtn"
+                class="py-btn py-example"
+            >
+
+                💡
+
+                <span>
+                    Example
+                </span>
+
+            </button>
+
+
+            <select
+                id="pythonExample"
+            >
+
+                <option value="hello">
+                    Hello World
+                </option>
+
+                <option value="calculator">
+                    Calculator
+                </option>
+
+                <option value="loop">
+                    For Loop
+                </option>
+
+                <option value="function">
+                    Function
+                </option>
+
+                <option value="list">
+                    List
+                </option>
+
+                <option value="input">
+                    User Input
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- WORKSPACE -->
+
+        <div class="python-workspace">
+
+
+            <!-- EDITOR -->
+
+            <div class="python-editor-panel">
+
+                <div class="python-panel-header">
+
+                    <span>
+                        📝 Python Code
+                    </span>
+
+                    <span>
+                        Python 3
+                    </span>
+
+                </div>
+
+
+<textarea
+id="pythonEditor"
+spellcheck="false">print("Hello, MR.PY-COBRA!")
+
+for i in range(5):
+    print("Python", i + 1)</textarea>
+
+            </div>
+
+
+            <!-- OUTPUT -->
+
+            <div class="python-output-panel">
+
+                <div class="python-panel-header">
+
+                    <span>
+                        💻 Output
+                    </span>
+
+                    <span>
+                        Console
+                    </span>
+
+                </div>
+
+
+                <pre id="pythonOutput"><span class="python-placeholder">Python output will appear here...</span></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="python-footer">
+            Tip: Press Ctrl + Enter to run your code.
+        </div>
+
+    </div>
+
 </div>
 
-<!-- POPUP -->
+
+<!-- =====================================================
+     NOTES
+===================================================== -->
+
+<div
+    id="notes"
+    class="section"
+>
+
+    <h2>
+        📄 Notes
+    </h2>
+
+
+    <div class="note-card">
+
+        <iframe
+            src="turtle_graphics_mrpycobra.pdf"
+        ></iframe>
+
+        <a
+            href="turtle_graphics_mrpycobra.pdf"
+            class="btn"
+            download
+        >
+            Download
+        </a>
+
+    </div>
+
+
+    <div class="note-card">
+
+        <iframe
+            src="python_basics_mrpycobra.pdf"
+        ></iframe>
+
+        <a
+            href="python_basics_mrpycobra.pdf"
+            class="btn"
+            download
+        >
+            Download
+        </a>
+
+    </div>
+
+
+    <div class="note-card">
+
+        <iframe
+            src="fillcolor_all_argument_colors_name.pdf"
+        ></iframe>
+
+        <a
+            href="fillcolor_all_argument_colors_name.pdf"
+            class="btn"
+            download
+        >
+            Download
+        </a>
+
+    </div>
+
+
+    <div class="note-card">
+
+        <iframe
+            src="Turtle_Python_Fonts_Guide.pdf"
+        ></iframe>
+
+        <a
+            href="Turtle_Python_Fonts_Guide.pdf"
+            class="btn"
+            download
+        >
+            Download
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     VIDEO POPUP
+===================================================== -->
+
 <div id="popup">
- <span onclick="closeVideo()">✖</span>
- <iframe id="player"></iframe>
+
+    <span onclick="closeVideo()">
+        ✖
+    </span>
+
+    <iframe
+        id="player"
+    ></iframe>
+
 </div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script>
 
-/* SUBSCRIBE */
-let isSub = localStorage.getItem("subscribed")==="true";
-let bellOn = localStorage.getItem("bell")==="true";
+
+/* =====================================================
+   SUBSCRIBE
+===================================================== */
+
+let isSub =
+    localStorage.getItem("subscribed")
+    ===
+    "true";
+
+let bellOn =
+    localStorage.getItem("bell")
+    ===
+    "true";
+
 
 function toggleSub(){
- isSub=!isSub;
- localStorage.setItem("subscribed",isSub);
- if(isSub){
-  window.open("https://www.youtube.com/@mr_py_cobra_01?sub_confirmation=1");
- }
- updateUI();
+
+    isSub = !isSub;
+
+    localStorage.setItem(
+        "subscribed",
+        isSub
+    );
+
+
+    if(isSub){
+
+        window.open(
+            "https://www.youtube.com/@mr_py_cobra_01?sub_confirmation=1",
+            "_blank"
+        );
+
+    }
+
+
+    updateUI();
+
 }
+
 
 function ringBell(){
- if(!isSub) return alert("Subscribe first!");
- bellOn=!bellOn;
- localStorage.setItem("bell",bellOn);
- updateUI();
+
+    if(!isSub){
+
+        alert(
+            "Subscribe first!"
+        );
+
+        return;
+    }
+
+
+    bellOn = !bellOn;
+
+    localStorage.setItem(
+        "bell",
+        bellOn
+    );
+
+
+    updateUI();
+
 }
+
 
 function updateUI(){
- let btn=document.getElementById("subBtn");
- let text=document.getElementById("subText");
- let bell=document.getElementById("bell");
 
- if(isSub){btn.classList.add("subscribed");text.innerText="Subscribed";}
- else{btn.classList.remove("subscribed");text.innerText="Subscribe";}
+    let btn =
+        document.getElementById(
+            "subBtn"
+        );
 
- bell.classList.toggle("active",bellOn);
+    let text =
+        document.getElementById(
+            "subText"
+        );
+
+    let bell =
+        document.getElementById(
+            "bell"
+        );
+
+
+    if(isSub){
+
+        btn.classList.add(
+            "subscribed"
+        );
+
+        text.innerText =
+            "Subscribed";
+
+    }
+
+    else{
+
+        btn.classList.remove(
+            "subscribed"
+        );
+
+        text.innerText =
+            "Subscribe";
+
+    }
+
+
+    bell.classList.toggle(
+        "active",
+        bellOn
+    );
+
 }
+
+
 updateUI();
 
-/* YOUTUBE API */
-const API_KEY="AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
-const CHANNEL_ID="UCGb3jgOzfQsdENrlFWRB_Bw";
 
-let allVideos=[];
+/* =====================================================
+   YOUTUBE API
+===================================================== */
 
-function animate(id,end){
- let i=0,step=Math.ceil(end/100);
- let el=document.getElementById(id);
- let int=setInterval(()=>{
-  i+=step;
-  if(i>=end){i=end;clearInterval(int);}
-  el.innerText=i;
- },20);
+const API_KEY =
+    "AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
+
+const CHANNEL_ID =
+    "UCGb3jgOzfQsdENrlFWRB_Bw";
+
+
+let allVideos = [];
+
+
+function animate(
+    id,
+    end
+){
+
+    let i = 0;
+
+    let step =
+        Math.max(
+            1,
+            Math.ceil(
+                end / 100
+            )
+        );
+
+    let el =
+        document.getElementById(
+            id
+        );
+
+
+    let int =
+        setInterval(
+            () => {
+
+                i += step;
+
+
+                if(i >= end){
+
+                    i = end;
+
+                    clearInterval(
+                        int
+                    );
+
+                }
+
+
+                el.innerText =
+                    i;
+
+            },
+            20
+        );
+
 }
+
 
 async function loadDashboard(){
- let r=await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
- let d=await r.json();
- let s=d.items[0].statistics;
- animate("subs",+s.subscriberCount);
- animate("views",+s.viewCount);
- animate("totalVideos",+s.videoCount);
+
+    try{
+
+        let r =
+            await fetch(
+                `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+            );
+
+
+        let d =
+            await r.json();
+
+
+        if(
+            !d.items ||
+            !d.items.length
+        ){
+
+            console.error(
+                "YouTube channel data unavailable",
+                d
+            );
+
+            return;
+        }
+
+
+        let s =
+            d.items[0].statistics;
+
+
+        animate(
+            "subs",
+            +s.subscriberCount
+        );
+
+        animate(
+            "views",
+            +s.viewCount
+        );
+
+        animate(
+            "totalVideos",
+            +s.videoCount
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+    }
+
 }
+
 
 async function loadVideos(){
- let r=await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=13`);
- let d=await r.json();
 
- let videos=d.items.filter(v=>v.id.videoId);
+    try{
 
- // Latest
- let latest=videos[0];
- document.getElementById("latestVideo").innerHTML =
-  `<iframe src="https://www.youtube.com/embed/${latest.id.videoId}" allowfullscreen></iframe>`;
+        let r =
+            await fetch(
+                `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=13`
+            );
 
- // Rest
- allVideos=videos.slice(1);
- displayVideos(allVideos);
+
+        let d =
+            await r.json();
+
+
+        if(
+            !d.items
+        ){
+
+            console.error(
+                "YouTube videos unavailable",
+                d
+            );
+
+            return;
+        }
+
+
+        let videos =
+            d.items.filter(
+                v =>
+                    v.id &&
+                    v.id.videoId
+            );
+
+
+        if(
+            videos.length === 0
+        ){
+
+            return;
+        }
+
+
+        /* Latest */
+
+        let latest =
+            videos[0];
+
+
+        document
+            .getElementById(
+                "latestVideo"
+            )
+            .innerHTML =
+
+            `<iframe
+                src="https://www.youtube.com/embed/${latest.id.videoId}"
+                allowfullscreen>
+            </iframe>`;
+
+
+        /* Rest */
+
+        allVideos =
+            videos.slice(1);
+
+
+        displayVideos(
+            allVideos
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Video loading error:",
+            error
+        );
+
+    }
+
 }
+
 
 function displayVideos(vs){
- let h="";
- vs.forEach(v=>{
-  h+=`<div class="video-card" onclick="playVideo('${v.id.videoId}')">
-  <img src="${v.snippet.thumbnails.high.url}">
-  <div>${v.snippet.title}</div></div>`;
- });
- videoGrid.innerHTML=h;
+
+    let h = "";
+
+
+    vs.forEach(
+        v => {
+
+            h +=
+
+            `<div
+                class="video-card"
+                onclick="playVideo('${v.id.videoId}')"
+            >
+
+                <img
+                    src="${v.snippet.thumbnails.high.url}"
+                    alt="Video thumbnail"
+                >
+
+                <div>
+                    ${escapeHTML(
+                        v.snippet.title
+                    )}
+                </div>
+
+            </div>`;
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "videoGrid"
+        )
+        .innerHTML = h;
+
 }
+
 
 function searchVideos(q){
- displayVideos(allVideos.filter(v=>v.snippet.title.toLowerCase().includes(q.toLowerCase())));
+
+    displayVideos(
+
+        allVideos.filter(
+            v =>
+                v.snippet.title
+                    .toLowerCase()
+                    .includes(
+                        q.toLowerCase()
+                    )
+        )
+
+    );
+
 }
 
+
 function playVideo(id){
- popup.style.display="flex";
- player.src=`https://www.youtube.com/embed/${id}?autoplay=1`;
+
+    document
+        .getElementById(
+            "popup"
+        )
+        .style.display =
+        "flex";
+
+
+    document
+        .getElementById(
+            "player"
+        )
+        .src =
+        `https://www.youtube.com/embed/${id}?autoplay=1`;
+
 }
+
+
 function closeVideo(){
- popup.style.display="none";
- player.src="";
+
+    document
+        .getElementById(
+            "popup"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "player"
+        )
+        .src =
+        "";
+
 }
+
 
 loadDashboard();
 loadVideos();
 
-/* INSANE BACKGROUND */
-const c=document.getElementById("bgAnimation");
-const ctx=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
 
-let mouse={x:0,y:0};
-onmousemove=e=>{mouse.x=e.x;mouse.y=e.y};
+/* =====================================================
+   PYTHON PLAYGROUND
+===================================================== */
 
-let particles=[];
-for(let i=0;i<120;i++){
- particles.push({x:Math.random()*c.width,y:Math.random()*c.height,dx:(Math.random()-0.5),dy:(Math.random()-0.5)});
+let pyodide = null;
+
+
+const pythonEditor =
+    document.getElementById(
+        "pythonEditor"
+    );
+
+const pythonOutput =
+    document.getElementById(
+        "pythonOutput"
+    );
+
+const pythonRun =
+    document.getElementById(
+        "pythonRun"
+    );
+
+const pythonRunIcon =
+    document.getElementById(
+        "pythonRunIcon"
+    );
+
+const pythonRunText =
+    document.getElementById(
+        "pythonRunText"
+    );
+
+const pythonClear =
+    document.getElementById(
+        "pythonClear"
+    );
+
+const pythonCopy =
+    document.getElementById(
+        "pythonCopy"
+    );
+
+const pythonExampleBtn =
+    document.getElementById(
+        "pythonExampleBtn"
+    );
+
+const pythonExample =
+    document.getElementById(
+        "pythonExample"
+    );
+
+const pythonStatus =
+    document.getElementById(
+        "pythonStatus"
+    );
+
+const pythonStatusDot =
+    document.getElementById(
+        "pythonStatusDot"
+    );
+
+
+/* =====================================================
+   LOAD PYTHON
+===================================================== */
+
+async function initializePython(){
+
+    try{
+
+        pythonStatus.innerText =
+            "Loading Python...";
+
+
+        /*
+         * Official Pyodide browser runtime.
+         */
+
+        pyodide =
+            await loadPyodide({
+
+                indexURL:
+                    "https://cdn.jsdelivr.net/pyodide/v0.29.1/full/"
+
+            });
+
+
+        pythonStatus.innerText =
+            "Python Ready";
+
+
+        pythonStatusDot.classList.add(
+            "ready"
+        );
+
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-success">
+                ✓ Python 3 is ready!
+                
+                Click "Run Python" to execute your code.
+            </span>`;
+
+    }
+
+    catch(error){
+
+        pythonStatus.innerText =
+            "Python Error";
+
+
+        pythonStatusDot.classList.remove(
+            "ready"
+        );
+
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-error">
+                ❌ Could not load Python.
+
+                ${escapeHTML(
+                    error.toString()
+                )}
+
+                Make sure you are opening this website
+                through HTTPS or a local web server.
+            </span>`;
+
+
+        console.error(
+            "Pyodide error:",
+            error
+        );
+
+    }
+
 }
+
+
+initializePython();
+
+
+/* =====================================================
+   RUN PYTHON
+===================================================== */
+
+async function runPython(){
+
+    if(!pyodide){
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-error">
+                Python is still loading.
+                Please wait a moment and try again.
+            </span>`;
+
+        return;
+    }
+
+
+    const code =
+        pythonEditor.value;
+
+
+    if(!code.trim()){
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-error">
+                Please enter some Python code.
+            </span>`;
+
+        return;
+    }
+
+
+    /* Dynamic RUN animation */
+
+    pythonRun.classList.add(
+        "running"
+    );
+
+
+    pythonRunIcon.innerText =
+        "⟳";
+
+
+    pythonRunText.innerText =
+        "Running...";
+
+
+    pythonOutput.innerText =
+        "Running Python...\n";
+
+
+    let resultText = "";
+
+
+    try{
+
+
+        /* STDOUT */
+
+        pyodide.setStdout({
+
+            batched:
+                function(text){
+
+                    resultText +=
+                        text + "\n";
+
+                }
+
+        });
+
+
+        /* STDERR */
+
+        pyodide.setStderr({
+
+            batched:
+                function(text){
+
+                    resultText +=
+                        text + "\n";
+
+                }
+
+        });
+
+
+        /* INPUT */
+
+        pyodide.setStdin({
+
+            stdin:
+                function(){
+
+                    const value =
+                        window.prompt(
+                            "Python input:"
+                        );
+
+
+                    if(
+                        value === null
+                    ){
+
+                        return null;
+
+                    }
+
+
+                    return value;
+
+                }
+
+        });
+
+
+        /* RUN */
+
+        await pyodide.runPythonAsync(
+            code
+        );
+
+
+        /* RESULT */
+
+        if(
+            resultText.trim() === ""
+        ){
+
+            pythonOutput.innerHTML =
+
+                `<span class="python-success">
+                    ✓ Program finished successfully.
+                </span>`;
+
+        }
+
+        else{
+
+            pythonOutput.textContent =
+                resultText;
+
+        }
+
+    }
+
+    catch(error){
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-error">
+                ${escapeHTML(
+                    error.toString()
+                )}
+            </span>`;
+
+    }
+
+
+    finally{
+
+        pythonRun.classList.remove(
+            "running"
+        );
+
+
+        pythonRunIcon.innerText =
+            "▶";
+
+
+        pythonRunText.innerText =
+            "Run Python";
+
+    }
+
+}
+
+
+pythonRun.addEventListener(
+    "click",
+    runPython
+);
+
+
+/* =====================================================
+   CLEAR PYTHON
+===================================================== */
+
+pythonClear.addEventListener(
+    "click",
+    function(){
+
+        pythonEditor.value =
+            "";
+
+
+        pythonOutput.innerHTML =
+
+            `<span class="python-placeholder">
+                Python output will appear here...
+            </span>`;
+
+
+        pythonClear.animate(
+
+            [
+
+                {
+                    transform:
+                        "scale(1)"
+                },
+
+                {
+                    transform:
+                        "scale(.88)"
+                },
+
+                {
+                    transform:
+                        "scale(1.07)"
+                },
+
+                {
+                    transform:
+                        "scale(1)"
+                }
+
+            ],
+
+            {
+                duration:
+                    350
+            }
+
+        );
+
+    }
+);
+
+
+/* =====================================================
+   COPY PYTHON
+===================================================== */
+
+pythonCopy.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            await navigator.clipboard.writeText(
+                pythonEditor.value
+            );
+
+        }
+
+        catch(error){
+
+            pythonEditor.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+            window.getSelection()
+                .removeAllRanges();
+
+        }
+
+
+        pythonCopy.classList.add(
+            "copied"
+        );
+
+
+        pythonCopy.innerHTML =
+            "✓ <span>Copied!</span>";
+
+
+        setTimeout(
+            function(){
+
+                pythonCopy.classList.remove(
+                    "copied"
+                );
+
+
+                pythonCopy.innerHTML =
+                    "📋 <span>Copy</span>";
+
+            },
+            1500
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PYTHON EXAMPLES
+===================================================== */
+
+const pythonExamples = {
+
+
+    hello:
+`print("Hello, World!")
+print("Welcome to MR.PY-COBRA!")`,
+
+
+    calculator:
+`a = float(input("Enter first number: "))
+b = float(input("Enter second number: "))
+
+print("Sum =", a + b)
+print("Difference =", a - b)
+print("Product =", a * b)
+print("Division =", a / b)`,
+
+
+    loop:
+`for i in range(1, 11):
+    print(i)`,
+
+
+    function:
+`def greet(name):
+    return "Hello, " + name
+
+name = input("Enter your name: ")
+
+print(greet(name))`,
+
+
+    list:
+`numbers = [10, 20, 30, 40, 50]
+
+print("Original:", numbers)
+
+numbers.append(60)
+
+print("Updated:", numbers)`,
+
+
+    input:
+`name = input("What is your name? ")
+age = input("How old are you? ")
+
+print()
+print("Hello", name)
+print("You are", age, "years old.")`
+
+};
+
+
+/* =====================================================
+   LOAD EXAMPLE
+===================================================== */
+
+function loadPythonExample(){
+
+    const selected =
+        pythonExample.value;
+
+
+    pythonEditor.value =
+        pythonExamples[
+            selected
+        ];
+
+
+    pythonOutput.innerHTML =
+
+        `<span class="python-placeholder">
+            Example loaded.
+            Click "Run Python".
+        </span>`;
+
+}
+
+
+pythonExampleBtn.addEventListener(
+    "click",
+    loadPythonExample
+);
+
+
+pythonExample.addEventListener(
+    "change",
+    loadPythonExample
+);
+
+
+/* =====================================================
+   TAB SUPPORT + CTRL ENTER
+===================================================== */
+
+pythonEditor.addEventListener(
+    "keydown",
+    function(event){
+
+
+        /* TAB */
+
+        if(
+            event.key === "Tab"
+        ){
+
+            event.preventDefault();
+
+
+            const start =
+                this.selectionStart;
+
+            const end =
+                this.selectionEnd;
+
+
+            this.value =
+
+                this.value.substring(
+                    0,
+                    start
+                )
+
+                +
+
+                "    "
+
+                +
+
+                this.value.substring(
+                    end
+                );
+
+
+            this.selectionStart =
+                this.selectionEnd =
+                start + 4;
+
+        }
+
+
+        /* CTRL + ENTER */
+
+        if(
+            event.ctrlKey &&
+            event.key === "Enter"
+        ){
+
+            event.preventDefault();
+
+            runPython();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PYTHON BUTTON RIPPLE
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".py-btn"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(event){
+
+                    const ripple =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    ripple.className =
+                        "py-ripple";
+
+
+                    const rect =
+                        button.getBoundingClientRect();
+
+
+                    const size =
+                        Math.max(
+                            rect.width,
+                            rect.height
+                        );
+
+
+                    ripple.style.width =
+                        size + "px";
+
+
+                    ripple.style.height =
+                        size + "px";
+
+
+                    ripple.style.left =
+
+                        (
+                            event.clientX -
+                            rect.left -
+                            size / 2
+                        )
+                        +
+                        "px";
+
+
+                    ripple.style.top =
+
+                        (
+                            event.clientY -
+                            rect.top -
+                            size / 2
+                        )
+                        +
+                        "px";
+
+
+                    button.appendChild(
+                        ripple
+                    );
+
+
+                    setTimeout(
+                        function(){
+
+                            ripple.remove();
+
+                        },
+                        600
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   BACKGROUND PARTICLES
+===================================================== */
+
+const c =
+    document.getElementById(
+        "bgAnimation"
+    );
+
+const ctx =
+    c.getContext("2d");
+
+
+function resizeCanvas(){
+
+    c.width =
+        window.innerWidth;
+
+    c.height =
+        window.innerHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+let mouse = {
+    x:0,
+    y:0
+};
+
+
+window.addEventListener(
+    "mousemove",
+    function(e){
+
+        mouse.x =
+            e.clientX;
+
+        mouse.y =
+            e.clientY;
+
+    }
+);
+
+
+let particles = [];
+
+
+for(
+    let i = 0;
+    i < 120;
+    i++
+){
+
+    particles.push({
+
+        x:
+            Math.random() *
+            c.width,
+
+        y:
+            Math.random() *
+            c.height,
+
+        dx:
+            (Math.random()-.5),
+
+        dy:
+            (Math.random()-.5)
+
+    });
+
+}
+
 
 function draw(){
- ctx.clearRect(0,0,c.width,c.height);
- particles.forEach(p=>{
-  p.x+=p.dx;p.y+=p.dy;
-  if(p.x<0||p.x>c.width)p.dx*=-1;
-  if(p.y<0||p.y>c.height)p.dy*=-1;
 
-  ctx.beginPath();
-  ctx.arc(p.x,p.y,2,0,Math.PI*2);
-  ctx.fillStyle="#00ffcc";
-  ctx.fill();
+    ctx.clearRect(
+        0,
+        0,
+        c.width,
+        c.height
+    );
 
-  particles.forEach(p2=>{
-   let d=Math.hypot(p.x-p2.x,p.y-p2.y);
-   if(d<100){
-    ctx.strokeStyle="rgba(0,255,204,0.1)";
-    ctx.beginPath();
-    ctx.moveTo(p.x,p.y);
-    ctx.lineTo(p2.x,p2.y);
-    ctx.stroke();
-   }
-  });
 
-  let md=Math.hypot(p.x-mouse.x,p.y-mouse.y);
-  if(md<120){
-   p.x+=(mouse.x-p.x)*0.02;
-   p.y+=(mouse.y-p.y)*0.02;
-  }
- });
- requestAnimationFrame(draw);
+    particles.forEach(
+        p => {
+
+
+            p.x +=
+                p.dx;
+
+            p.y +=
+                p.dy;
+
+
+            if(
+                p.x < 0 ||
+                p.x > c.width
+            ){
+
+                p.dx *= -1;
+
+            }
+
+
+            if(
+                p.y < 0 ||
+                p.y > c.height
+            ){
+
+                p.dy *= -1;
+
+            }
+
+
+            /* Particle */
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                2,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                "#00ffcc";
+
+            ctx.fill();
+
+
+            /* Connections */
+
+            particles.forEach(
+                p2 => {
+
+                    let d =
+                        Math.hypot(
+                            p.x-p2.x,
+                            p.y-p2.y
+                        );
+
+
+                    if(
+                        d < 100
+                    ){
+
+                        ctx.strokeStyle =
+                            "rgba(0,255,204,0.1)";
+
+                        ctx.beginPath();
+
+                        ctx.moveTo(
+                            p.x,
+                            p.y
+                        );
+
+                        ctx.lineTo(
+                            p2.x,
+                            p2.y
+                        );
+
+                        ctx.stroke();
+
+                    }
+
+                }
+            );
+
+
+            /* Mouse attraction */
+
+            let md =
+                Math.hypot(
+                    p.x-mouse.x,
+                    p.y-mouse.y
+                );
+
+
+            if(
+                md < 120
+            ){
+
+                p.x +=
+                    (
+                        mouse.x-p.x
+                    ) * .02;
+
+                p.y +=
+                    (
+                        mouse.y-p.y
+                    ) * .02;
+
+            }
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        draw
+    );
+
 }
+
+
 draw();
 
-onclick=e=>{
- for(let i=0;i<10;i++){
-  particles.push({x:e.x,y:e.y,dx:(Math.random()-0.5)*4,dy:(Math.random()-0.5)*4});
- }
-};
+
+/* =====================================================
+   CLICK PARTICLE EFFECT
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(e){
+
+        for(
+            let i=0;
+            i<10;
+            i++
+        ){
+
+            particles.push({
+
+                x:e.clientX,
+
+                y:e.clientY,
+
+                dx:
+                    (Math.random()-.5)*4,
+
+                dy:
+                    (Math.random()-.5)*4
+
+            });
+
+        }
+
+
+        /*
+         * Keep particle count reasonable.
+         */
+
+        if(
+            particles.length > 250
+        ){
+
+            particles.splice(
+                0,
+                particles.length - 250
+            );
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
- </html>
+</html>
