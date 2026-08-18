@@ -2832,86 +2832,280 @@ function escapeHTML(text){
 
 
 /* =====================================================
-   BACKGROUND PARTICLES
+   🇮🇳 INDIAN TRICOLOUR DYNAMIC BACKGROUND
 ===================================================== */
 
-const c =
-    document.getElementById(
-        "bgAnimation"
-    );
+const c = document.getElementById("bgAnimation");
+const ctx = c.getContext("2d");
 
-const ctx =
-    c.getContext("2d");
-
+const tricolor = [
+    "#FF9933",
+    "#FFFFFF",
+    "#138808"
+];
 
 function resizeCanvas(){
-
-    c.width =
-        window.innerWidth;
-
-    c.height =
-        window.innerHeight;
-
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
 }
-
 
 resizeCanvas();
 
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
+window.addEventListener("resize", resizeCanvas);
 
 let mouse = {
-    x:0,
-    y:0
+    x: -1000,
+    y: -1000
 };
 
-
-window.addEventListener(
-    "mousemove",
-    function(e){
-
-        mouse.x =
-            e.clientX;
-
-        mouse.y =
-            e.clientY;
-
-    }
-);
-
+window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
 
 let particles = [];
 
-
-for(
-    let i = 0;
-    i < 120;
-    i++
-){
+for(let i = 0; i < 120; i++){
 
     particles.push({
+        x: Math.random() * c.width,
+        y: Math.random() * c.height,
 
-        x:
-            Math.random() *
-            c.width,
+        dx: (Math.random() - 0.5),
+        dy: (Math.random() - 0.5),
 
-        y:
-            Math.random() *
-            c.height,
+        size: Math.random() * 1.5 + 1,
 
-        dx:
-            (Math.random()-.5),
-
-        dy:
-            (Math.random()-.5)
-
+        color:
+            tricolor[
+                Math.floor(
+                    Math.random() * tricolor.length
+                )
+            ]
     });
 
 }
+
+function hexToRGBA(hex, alpha){
+
+    const value =
+        parseInt(hex.substring(1), 16);
+
+    const r = (value >> 16) & 255;
+    const g = (value >> 8) & 255;
+    const b = value & 255;
+
+    return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function draw(){
+
+    /* BLACK BACKGROUND */
+
+    ctx.fillStyle = "#000000";
+
+    ctx.fillRect(
+        0,
+        0,
+        c.width,
+        c.height
+    );
+
+
+    /* PARTICLES */
+
+    particles.forEach(p => {
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x < 0 || p.x > c.width)
+            p.dx *= -1;
+
+        if(p.y < 0 || p.y > c.height)
+            p.dy *= -1;
+
+        const md =
+            Math.hypot(
+                p.x - mouse.x,
+                p.y - mouse.y
+            );
+
+        if(md < 120){
+
+            p.x +=
+                (mouse.x - p.x) * 0.02;
+
+            p.y +=
+                (mouse.y - p.y) * 0.02;
+
+        }
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle = p.color;
+
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color;
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+
+    });
+
+
+    /* TRICOLOUR CONNECTING LINES */
+
+    particles.forEach((p1, i) => {
+
+        particles.forEach((p2, j) => {
+
+            if(i >= j) return;
+
+            const d =
+                Math.hypot(
+                    p1.x - p2.x,
+                    p1.y - p2.y
+                );
+
+            if(d < 100){
+
+                const color =
+                    tricolor[
+                        (i + j) %
+                        tricolor.length
+                    ];
+
+                const opacity =
+                    (1 - d / 100) * 0.3;
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    p1.x,
+                    p1.y
+                );
+
+                ctx.lineTo(
+                    p2.x,
+                    p2.y
+                );
+
+                ctx.strokeStyle =
+                    hexToRGBA(
+                        color,
+                        opacity
+                    );
+
+                ctx.lineWidth = 0.7;
+
+                ctx.stroke();
+
+            }
+
+        });
+
+    });
+
+
+    /* MOUSE CONNECTIONS */
+
+    particles.forEach(p => {
+
+        const d =
+            Math.hypot(
+                p.x - mouse.x,
+                p.y - mouse.y
+            );
+
+        if(d < 120){
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                p.x,
+                p.y
+            );
+
+            ctx.lineTo(
+                mouse.x,
+                mouse.y
+            );
+
+            ctx.strokeStyle =
+                hexToRGBA(
+                    p.color,
+                    0.3
+                );
+
+            ctx.lineWidth = 1;
+
+            ctx.stroke();
+
+        }
+
+    });
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+
+/* CLICK BURST */
+
+document.addEventListener(
+    "click",
+    e => {
+
+        for(let i = 0; i < 10; i++){
+
+            particles.push({
+
+                x: e.clientX,
+                y: e.clientY,
+
+                dx:
+                    (Math.random() - 0.5) * 4,
+
+                dy:
+                    (Math.random() - 0.5) * 4,
+
+                size:
+                    Math.random() * 1.5 + 1,
+
+                color:
+                    tricolor[
+                        Math.floor(
+                            Math.random() *
+                            tricolor.length
+                        )
+                    ]
+
+            });
+
+        }
+
+        if(particles.length > 250){
+
+            particles.splice(
+                0,
+                particles.length - 250
+            );
+
+        }
+
+    }
+);
 
 
 function draw(){
