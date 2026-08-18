@@ -2,46 +2,19 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<title>MR.PY-COBRA</title>
 
-<title> MR.PY-COBRA </title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 
-<link
-    rel="icon"
-    type="image/png"
-    href="logo.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="logo.png"
->
-
-<meta
-    name="theme-color"
-    content="#00ffcc"
->
-
-
-<!-- =====================================================
-     PYODIDE PYTHON RUNTIME
-===================================================== -->
+<meta name="theme-color" content="#00ffcc">
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.29.1/full/pyodide.js"></script>
 
-
 <style>
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 *{
     margin:0;
     padding:0;
@@ -68,48 +41,33 @@ body{
     overflow-x:hidden;
 }
 
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
 #bgAnimation{
     position:fixed;
     inset:0;
+    width:100%;
+    height:100%;
     z-index:-1;
-    background:#000000;
-    }
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
+    background:#000;
+}
 
 .nav{
     position:fixed;
     top:0;
     left:0;
     width:100%;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:12px 18px;
-
     background:rgba(0,0,0,.65);
-
     backdrop-filter:blur(12px);
-
     border-bottom:1px solid rgba(0,255,204,.15);
-
     z-index:1000;
 }
 
 .nav-brand{
     font-weight:bold;
     color:var(--neon);
-
     text-shadow:
         0 0 8px var(--neon),
         0 0 20px rgba(0,255,204,.3);
@@ -130,68 +88,39 @@ body{
 
 .nav a:hover{
     color:white;
-
-    text-shadow:
-        0 0 8px var(--neon);
-
+    text-shadow:0 0 8px var(--neon);
     transform:translateY(-1px);
 }
-
-
-/* =====================================================
-   SECTIONS
-===================================================== */
 
 .section{
     padding:100px 20px;
     text-align:center;
 }
 
-h1,
-h2{
-    text-shadow:
-        0 0 10px var(--neon);
+h1,h2{
+    text-shadow:0 0 10px var(--neon);
 }
-
-
-/* =====================================================
-   HERO
-===================================================== */
 
 .hero img{
     width:130px;
-
     border-radius:50%;
-
-    animation:
-        float 3s infinite ease-in-out;
-
+    animation:float 3s infinite ease-in-out;
     box-shadow:
         0 0 20px var(--neon),
         0 0 50px rgba(0,255,204,.25);
 }
 
 @keyframes float{
-
     50%{
         transform:translateY(-10px);
     }
-
 }
-
-
-/* =====================================================
-   SUBSCRIBE
-===================================================== */
 
 .yt-subscribe-box{
     display:flex;
-
     justify-content:center;
     align-items:center;
-
     gap:10px;
-
     margin:15px 0;
 }
 
@@ -199,35 +128,23 @@ h2{
     display:flex;
     align-items:center;
     gap:8px;
-
     background:#ff0000;
     color:#fff;
-
     border:none;
-
     padding:10px 18px;
-
     border-radius:25px;
-
     cursor:pointer;
-
     transition:.3s;
-
-    box-shadow:
-        0 0 10px red;
+    box-shadow:0 0 10px red;
 }
 
 #subBtn img{
     width:20px;
-
-    filter:
-        brightness(0)
-        invert(1);
+    filter:brightness(0) invert(1);
 }
 
 #subBtn:hover{
-    transform:
-        scale(1.1);
+    transform:scale(1.1);
 }
 
 .subscribed{
@@ -243,96 +160,49 @@ h2{
 #bell.active{
     opacity:1;
     color:var(--neon);
-
-    text-shadow:
-        0 0 10px var(--neon);
+    text-shadow:0 0 10px var(--neon);
 }
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
 
 .dashboard{
     display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(200px,1fr)
-        );
-
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:20px;
-
     margin-top:30px;
 }
 
 .card{
-    background:
-        rgba(255,255,255,.05);
-
+    background:rgba(255,255,255,.05);
     padding:20px;
-
     border-radius:12px;
-
-    box-shadow:
-        0 0 15px var(--neon);
-
+    box-shadow:0 0 15px var(--neon);
     transition:.3s;
 }
 
 .card:hover{
-    transform:
-        translateY(-6px);
-
-    box-shadow:
-        0 0 25px var(--neon);
+    transform:translateY(-6px);
+    box-shadow:0 0 25px var(--neon);
 }
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
 
 .search-box input{
     padding:10px;
-
     border:none;
-
     border-radius:6px;
-
     outline:none;
+    width:min(500px,90%);
 }
-
-
-/* =====================================================
-   VIDEO GRID
-===================================================== */
 
 .video-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(250px,1fr)
-        );
-
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-
     margin-top:30px;
 }
 
 .video-card{
-    background:
-        rgba(255,255,255,.05);
-
+    background:rgba(255,255,255,.05);
     border-radius:12px;
-
     overflow:hidden;
-
     cursor:pointer;
-
     transition:.3s;
 }
 
@@ -346,50 +216,27 @@ h2{
 }
 
 .video-card:hover{
-    transform:
-        scale(1.05);
-
-    box-shadow:
-        0 0 20px var(--neon);
+    transform:scale(1.05);
+    box-shadow:0 0 20px var(--neon);
 }
-
-
-/* =====================================================
-   PLAYLIST IFRAMES
-===================================================== */
 
 #videos > iframe{
     width:90%;
     max-width:800px;
     height:450px;
-
     border:none;
-
     border-radius:12px;
-
     margin-top:20px;
-
-    box-shadow:
-        0 0 20px var(--neon);
+    box-shadow:0 0 20px var(--neon);
 }
-
-
-/* =====================================================
-   POPUP
-===================================================== */
 
 #popup{
     position:fixed;
     inset:0;
-
-    background:
-        rgba(0,0,0,.92);
-
+    background:rgba(0,0,0,.92);
     display:none;
-
     justify-content:center;
     align-items:center;
-
     z-index:2000;
 }
 
@@ -397,274 +244,152 @@ h2{
     width:90%;
     max-width:800px;
     height:450px;
-
     border:none;
-
     border-radius:12px;
 }
 
 #popup span{
     position:absolute;
-
     top:20px;
     right:30px;
-
     font-size:30px;
-
     cursor:pointer;
-
     color:white;
 }
 
-
-/* =====================================================
-   NOTES
-===================================================== */
-
 .note-card{
     margin:30px auto;
-
     padding:20px;
-
     max-width:700px;
-
-    background:
-        rgba(255,255,255,.05);
-
+    background:rgba(255,255,255,.05);
     border-radius:12px;
-
-    box-shadow:
-        0 0 10px rgba(0,255,204,.2);
+    box-shadow:0 0 10px rgba(0,255,204,.2);
 }
 
 .note-card iframe{
     width:100%;
     height:300px;
-
     border:none;
-
     margin:10px 0;
 }
 
 .btn{
     display:inline-block;
-
     padding:10px 20px;
-
-    background:
-        var(--neon);
-
+    background:var(--neon);
     color:#000;
-
     border-radius:6px;
-
     text-decoration:none;
-
     font-weight:bold;
-
     transition:.3s;
 }
 
 .btn:hover{
-    transform:
-        scale(1.08);
-
-    box-shadow:
-        0 0 15px var(--neon);
+    transform:scale(1.08);
+    box-shadow:0 0 15px var(--neon);
 }
-
-
-/* =====================================================
-   LATEST VIDEO
-===================================================== */
 
 #latestVideo iframe{
     width:90%;
     max-width:800px;
     height:450px;
-
     border:none;
-
     border-radius:12px;
-
-    box-shadow:
-        0 0 20px var(--neon);
+    box-shadow:0 0 20px var(--neon);
 }
 
-
-/* =====================================================
-   PYTHON PLAYGROUND
-===================================================== */
+/* ================= PYTHON PLAYGROUND ================= */
 
 #python{
     position:relative;
 }
 
-
-/* Playground heading */
-
 .python-subtitle{
     margin-top:10px;
-
     color:#9edbd2;
-
     font-size:14px;
 }
-
-
-/* Playground */
 
 .python-playground{
     width:100%;
     max-width:1400px;
-
     margin:35px auto 0;
-
     text-align:left;
-
-    background:
-        rgba(5,10,15,.92);
-
-    border:
-        1px solid rgba(0,255,204,.35);
-
+    background:rgba(5,10,15,.92);
+    border:1px solid rgba(0,255,204,.35);
     border-radius:16px;
-
     overflow:hidden;
-
     box-shadow:
         0 0 25px rgba(0,255,204,.15),
         0 20px 60px rgba(0,0,0,.45);
 }
 
-
-/* Playground top */
-
 .python-topbar{
     min-height:55px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:15px;
-
     padding:10px 16px;
-
-    background:
-        rgba(10,20,25,.95);
-
-    border-bottom:
-        1px solid rgba(0,255,204,.15);
+    background:rgba(10,20,25,.95);
+    border-bottom:1px solid rgba(0,255,204,.15);
 }
 
 .python-title{
     color:var(--neon);
-
     font-weight:bold;
-
-    text-shadow:
-        0 0 8px var(--neon);
+    text-shadow:0 0 8px var(--neon);
 }
 
 .python-status{
     display:flex;
-
     align-items:center;
-
     gap:7px;
-
     color:#8da6a2;
-
     font-size:12px;
 }
 
 .python-status-dot{
     width:8px;
     height:8px;
-
     border-radius:50%;
-
     background:#f59e0b;
-
-    box-shadow:
-        0 0 8px #f59e0b;
+    box-shadow:0 0 8px #f59e0b;
 }
 
 .python-status-dot.ready{
-    background:
-        var(--green);
-
+    background:var(--green);
     box-shadow:
         0 0 8px var(--green),
         0 0 18px rgba(34,197,94,.5);
 }
 
-
-/* =====================================================
-   PYTHON TOOLBAR
-===================================================== */
-
 .python-toolbar{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:10px;
-
     padding:14px;
-
-    background:
-        rgba(8,14,19,.95);
-
-    border-bottom:
-        1px solid rgba(0,255,204,.12);
+    background:rgba(8,14,19,.95);
+    border-bottom:1px solid rgba(0,255,204,.12);
 }
-
-
-/* Dynamic buttons */
 
 .py-btn{
     position:relative;
-
     height:44px;
-
     min-width:110px;
-
     padding:0 16px;
-
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:8px;
-
     color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            #14212a,
-            #0a1117
-        );
-
-    border:
-        1px solid #304653;
-
+    background:linear-gradient(145deg,#14212a,#0a1117);
+    border:1px solid #304653;
     border-radius:9px;
-
     font-size:13px;
-
     font-weight:bold;
-
     cursor:pointer;
-
     overflow:hidden;
-
     transition:
         transform .2s,
         box-shadow .2s,
@@ -672,35 +397,21 @@ h2{
         background .2s;
 }
 
-
-/* Moving shine */
-
 .py-btn::before{
     content:"";
-
     position:absolute;
-
     top:-40%;
-
     left:-100px;
-
     width:65px;
-
     height:180%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.35),
-            transparent
-        );
-
-    transform:
-        skewX(-20deg);
-
-    transition:
-        left .55s;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.35),
+        transparent
+    );
+    transform:skewX(-20deg);
+    transition:left .55s;
 }
 
 .py-btn:hover::before{
@@ -708,279 +419,145 @@ h2{
 }
 
 .py-btn:hover{
-    transform:
-        translateY(-3px)
-        scale(1.02);
+    transform:translateY(-3px) scale(1.02);
 }
 
 .py-btn:active{
-    transform:
-        scale(.95);
+    transform:scale(.95);
 }
-
-
-/* Run */
 
 .py-run{
     min-width:145px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #087f3c,
-            #16c55b
-        );
-
-    border-color:
-        #20d968;
-
-    box-shadow:
-        0 0 10px
-        rgba(0,255,100,.15);
+    background:linear-gradient(135deg,#087f3c,#16c55b);
+    border-color:#20d968;
+    box-shadow:0 0 10px rgba(0,255,100,.15);
 }
 
 .py-run:hover{
     box-shadow:
-        0 0 20px
-        rgba(0,255,100,.45),
-        0 0 40px
-        rgba(0,255,100,.12);
+        0 0 20px rgba(0,255,100,.45),
+        0 0 40px rgba(0,255,100,.12);
 }
 
 .py-run.running{
     pointer-events:none;
-
-    animation:
-        pyRunPulse 1.2s infinite;
+    animation:pyRunPulse 1.2s infinite;
 }
 
 @keyframes pyRunPulse{
-
-    0%,
-    100%{
-        box-shadow:
-            0 0 8px
-            rgba(0,255,100,.2);
+    0%,100%{
+        box-shadow:0 0 8px rgba(0,255,100,.2);
     }
-
     50%{
-        box-shadow:
-            0 0 28px
-            rgba(0,255,100,.65);
+        box-shadow:0 0 28px rgba(0,255,100,.65);
     }
-
 }
-
-
-/* Clear */
 
 .py-clear:hover{
-    border-color:
-        var(--red);
-
+    border-color:var(--red);
     color:#fecaca;
-
-    box-shadow:
-        0 0 18px
-        rgba(239,68,68,.3);
+    box-shadow:0 0 18px rgba(239,68,68,.3);
 }
 
-
-/* Copy */
-
 .py-copy:hover{
-    border-color:
-        var(--blue);
-
+    border-color:var(--blue);
     color:#bae6fd;
-
-    box-shadow:
-        0 0 18px
-        rgba(56,189,248,.3);
+    box-shadow:0 0 18px rgba(56,189,248,.3);
 }
 
 .py-copy.copied{
     background:#14532d;
-
-    border-color:
-        var(--green);
-
+    border-color:var(--green);
     color:#86efac;
-
-    animation:
-        copied .35s ease;
+    animation:copied .35s ease;
 }
 
 @keyframes copied{
-
     50%{
-        transform:
-            scale(1.08);
+        transform:scale(1.08);
     }
-
 }
-
-
-/* Example */
 
 .py-example:hover{
-    border-color:
-        var(--purple);
-
+    border-color:var(--purple);
     color:#ddd6fe;
-
-    box-shadow:
-        0 0 18px
-        rgba(167,139,250,.3);
+    box-shadow:0 0 18px rgba(167,139,250,.3);
 }
-
-
-/* Example select */
 
 #pythonExample{
     height:44px;
-
     padding:0 14px;
-
     border-radius:9px;
-
-    border:
-        1px solid #304653;
-
+    border:1px solid #304653;
     background:#101b24;
-
     color:white;
-
     outline:none;
-
     cursor:pointer;
 }
 
 #pythonExample:hover,
 #pythonExample:focus{
-    border-color:
-        var(--purple);
-
-    box-shadow:
-        0 0 15px
-        rgba(167,139,250,.2);
+    border-color:var(--purple);
+    box-shadow:0 0 15px rgba(167,139,250,.2);
 }
-
-
-/* =====================================================
-   PYTHON WORKSPACE
-===================================================== */
 
 .python-workspace{
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:1px;
-
-    background:
-        rgba(0,255,204,.12);
+    background:rgba(0,255,204,.12);
 }
-
-
-/* Editor */
 
 .python-editor-panel,
 .python-output-panel{
     min-width:0;
-
     background:#05090d;
 }
 
 .python-panel-header{
     height:42px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:0 14px;
-
-    background:
-        #0d171e;
-
-    border-bottom:
-        1px solid rgba(0,255,204,.12);
-
+    background:#0d171e;
+    border-bottom:1px solid rgba(0,255,204,.12);
     color:#d9ffff;
-
     font-size:12px;
 }
 
 #pythonEditor{
     display:block;
-
     width:100%;
-
     height:500px;
-
     padding:18px;
-
     resize:vertical;
-
     border:none;
-
     outline:none;
-
     background:#05090d;
-
     color:#c9ffe8;
-
-    caret-color:
-        var(--neon);
-
-    font-family:
-        Consolas,
-        "Courier New",
-        monospace;
-
+    caret-color:var(--neon);
+    font-family:Consolas,"Courier New",monospace;
     font-size:14px;
-
     line-height:1.7;
-
     tab-size:4;
 }
 
 #pythonEditor::selection{
-    background:
-        rgba(0,255,204,.22);
+    background:rgba(0,255,204,.22);
 }
-
-
-/* Output */
 
 #pythonOutput{
     width:100%;
-
     height:500px;
-
     padding:18px;
-
     overflow:auto;
-
     background:#030608;
-
     color:#c9ffe8;
-
-    font-family:
-        Consolas,
-        "Courier New",
-        monospace;
-
+    font-family:Consolas,"Courier New",monospace;
     font-size:14px;
-
     line-height:1.7;
-
     white-space:pre-wrap;
-
     word-break:break-word;
 }
 
@@ -996,67 +573,37 @@ h2{
     color:#fca5a5;
 }
 
-
-/* Ripple */
-
 .py-ripple{
     position:absolute;
-
     border-radius:50%;
-
-    background:
-        rgba(255,255,255,.35);
-
-    transform:
-        scale(0);
-
-    animation:
-        pyRipple .55s linear;
-
+    background:rgba(255,255,255,.35);
+    transform:scale(0);
+    animation:pyRipple .55s linear;
     pointer-events:none;
 }
 
 @keyframes pyRipple{
-
     to{
-        transform:
-            scale(4);
-
+        transform:scale(4);
         opacity:0;
     }
-
 }
-
-
-/* =====================================================
-   PYTHON FOOTER
-===================================================== */
 
 .python-footer{
     padding:10px 15px;
-
     color:#526b68;
-
     font-size:11px;
-
     background:#081016;
-
-    border-top:
-        1px solid rgba(0,255,204,.08);
+    border-top:1px solid rgba(0,255,204,.08);
 }
 
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:800px){
 
     .nav{
         position:relative;
-
         flex-direction:column;
-
         gap:10px;
     }
 
@@ -1065,13 +612,11 @@ h2{
     }
 
     .section{
-        padding:
-            80px 15px;
+        padding:80px 15px;
     }
 
     .python-workspace{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
 
     #pythonEditor,
@@ -1083,17 +628,13 @@ h2{
     #videos > iframe{
         height:300px;
     }
-
 }
-
 
 @media(max-width:550px){
 
     .python-toolbar{
         display:grid;
-
-        grid-template-columns:
-            1fr 1fr;
+        grid-template-columns:1fr 1fr;
     }
 
     .py-btn,
@@ -1102,8 +643,7 @@ h2{
     }
 
     .py-run{
-        grid-column:
-            span 2;
+        grid-column:span 2;
     }
 
     .nav a{
@@ -1114,27 +654,15 @@ h2{
     .hero img{
         width:105px;
     }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     BACKGROUND
-===================================================== -->
-
 <canvas id="bgAnimation"></canvas>
 
-
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+<!-- ================= NAVIGATION ================= -->
 
 <div class="nav">
 
@@ -1143,61 +671,31 @@ h2{
     </div>
 
     <div class="nav-links">
-
-        <a href="#home">
-            Home
-        </a>
-
-        <a href="#dashboard">
-            Dashboard
-        </a>
-
-        <a href="#latest">
-            Latest
-        </a>
-
-        <a href="#videos">
-            Videos
-        </a>
-
-        <a href="#python">
-            🐍 Python
-        </a>
-
-        <a href="#notes">
-            Notes
-        </a>
-
+        <a href="#home">Home</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#latest">Latest</a>
+        <a href="#videos">Videos</a>
+        <a href="#python">🐍 Python</a>
+        <a href="#notes">Notes</a>
     </div>
 
 </div>
 
+<!-- ================= HOME ================= -->
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<div id="home" class="section hero">
 
-<div
-    id="home"
-    class="section hero"
->
+    <img src="logo.png" alt="MR.PY-COBRA Logo">
 
-    <img src="logo.png">
-
-    <h1>
-        MR.PY-COBRA
-    </h1>
-
+    <h1>MR.PY-COBRA</h1>
 
     <div class="yt-subscribe-box">
 
-        <button
-            id="subBtn"
-            onclick="toggleSub()"
-        >
+        <button id="subBtn" type="button">
 
             <img
                 src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                alt="YouTube"
             >
 
             <span id="subText">
@@ -1206,178 +704,109 @@ h2{
 
         </button>
 
-
-        <span
-            id="bell"
-            onclick="ringBell()"
-        >
+        <span id="bell" role="button" tabindex="0">
             🔔
         </span>
 
     </div>
 
-
-    <p>
-        Stay Relevant
-    </p>
+    <p>Stay Relevant</p>
 
 </div>
 
+<!-- ================= DASHBOARD ================= -->
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
+<div id="dashboard" class="section">
 
-<div
-    id="dashboard"
-    class="section"
->
-
-    <h2>
-        📊 Dashboard
-    </h2>
-
+    <h2>📊 Dashboard</h2>
 
     <div class="dashboard">
 
         <div class="card">
-
-            <h3>
-                Subscribers
-            </h3>
-
-            <p id="subs">
-                0
-            </p>
-
+            <h3>Subscribers</h3>
+            <p id="subs">0</p>
         </div>
 
-
         <div class="card">
-
-            <h3>
-                Views
-            </h3>
-
-            <p id="views">
-                0
-            </p>
-
+            <h3>Views</h3>
+            <p id="views">0</p>
         </div>
 
-
         <div class="card">
-
-            <h3>
-                Videos
-            </h3>
-
-            <p id="totalVideos">
-                0
-            </p>
-
+            <h3>Videos</h3>
+            <p id="totalVideos">0</p>
         </div>
 
     </div>
 
 </div>
 
+<!-- ================= LATEST ================= -->
 
-<!-- =====================================================
-     LATEST
-===================================================== -->
+<div id="latest" class="section">
 
-<div
-    id="latest"
-    class="section"
->
+    <h2>🔥 Latest Upload</h2>
 
-    <h2>
-        🔥 Latest Upload
-    </h2>
-
-    <div id="latestVideo"></div>
+    <div id="latestVideo">
+        <p class="python-placeholder">
+            Loading latest video...
+        </p>
+    </div>
 
 </div>
 
+<!-- ================= VIDEOS ================= -->
 
-<!-- =====================================================
-     VIDEOS
-===================================================== -->
+<div id="videos" class="section">
 
-<div
-    id="videos"
-    class="section"
->
-
-    <h2>
-        🎥 All Videos
-    </h2>
-
+    <h2>🎥 All Videos</h2>
 
     <div class="search-box">
 
         <input
+            id="videoSearch"
             type="text"
             placeholder="Search videos..."
-            oninput="searchVideos(this.value)"
+            autocomplete="off"
         >
 
     </div>
 
-
-    <div
-        id="videoGrid"
-        class="video-grid"
-    ></div>
-
+    <div id="videoGrid" class="video-grid"></div>
 
     <h2 style="margin-top:50px">
         📚 Python Playlist
     </h2>
 
-
     <iframe
         src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMygglx1-523bHuUtzZCRw22"
-        allowfullscreen
-    ></iframe>
-
+        title="Python Playlist"
+        allowfullscreen>
+    </iframe>
 
     <h2 style="margin-top:50px">
         🐢 Turtle Playlist
     </h2>
 
-
     <iframe
         src="https://www.youtube.com/embed?listType=playlist&list=PLL03LmROQCMxavPl8jxIRC-I2-vW6TD3m"
-        allowfullscreen
-    ></iframe>
+        title="Turtle Playlist"
+        allowfullscreen>
+    </iframe>
 
 </div>
 
+<!-- ================= PYTHON PLAYGROUND ================= -->
 
-<!-- =====================================================
-     PYTHON PLAYGROUND
-===================================================== -->
+<div id="python" class="section">
 
-<div
-    id="python"
-    class="section"
->
-
-    <h2>
-        🐍 Python Playground
-    </h2>
+    <h2>🐍 Python Playground</h2>
 
     <p class="python-subtitle">
         Write Python code and run it directly in your browser.
     </p>
 
-
     <div class="python-playground">
-
-
-        <!-- TOP -->
 
         <div class="python-topbar">
 
@@ -1385,13 +814,12 @@ h2{
                 MR.PY-COBRA CODE LAB
             </div>
 
-
             <div class="python-status">
 
                 <span
                     id="pythonStatusDot"
-                    class="python-status-dot"
-                ></span>
+                    class="python-status-dot">
+                </span>
 
                 <span id="pythonStatus">
                     Loading Python...
@@ -1401,20 +829,14 @@ h2{
 
         </div>
 
-
-        <!-- TOOLBAR -->
-
         <div class="python-toolbar">
-
 
             <button
                 id="pythonRun"
                 class="py-btn py-run"
-            >
+                type="button">
 
-                <span id="pythonRunIcon">
-                    ▶
-                </span>
+                <span id="pythonRunIcon">▶</span>
 
                 <span id="pythonRunText">
                     Run Python
@@ -1422,52 +844,34 @@ h2{
 
             </button>
 
-
             <button
                 id="pythonClear"
                 class="py-btn py-clear"
-            >
+                type="button">
 
-                🗑
-
-                <span>
-                    Clear
-                </span>
+                🗑 <span>Clear</span>
 
             </button>
-
 
             <button
                 id="pythonCopy"
                 class="py-btn py-copy"
-            >
+                type="button">
 
-                📋
-
-                <span>
-                    Copy
-                </span>
+                📋 <span>Copy</span>
 
             </button>
-
 
             <button
                 id="pythonExampleBtn"
                 class="py-btn py-example"
-            >
+                type="button">
 
-                💡
-
-                <span>
-                    Example
-                </span>
+                💡 <span>Example</span>
 
             </button>
 
-
-            <select
-                id="pythonExample"
-            >
+            <select id="pythonExample">
 
                 <option value="hello">
                     Hello World
@@ -1497,13 +901,7 @@ h2{
 
         </div>
 
-
-        <!-- WORKSPACE -->
-
         <div class="python-workspace">
-
-
-            <!-- EDITOR -->
 
             <div class="python-editor-panel">
 
@@ -1519,18 +917,14 @@ h2{
 
                 </div>
 
-
-<textarea
-id="pythonEditor"
-spellcheck="false">print("Hello, MR.PY-COBRA!")
+                <textarea
+                    id="pythonEditor"
+                    spellcheck="false">print("Hello, MR.PY-COBRA!")
 
 for i in range(5):
     print("Python", i + 1)</textarea>
 
             </div>
-
-
-            <!-- OUTPUT -->
 
             <div class="python-output-panel">
 
@@ -1546,13 +940,11 @@ for i in range(5):
 
                 </div>
 
-
                 <pre id="pythonOutput"><span class="python-placeholder">Python output will appear here...</span></pre>
 
             </div>
 
         </div>
-
 
         <div class="python-footer">
             Tip: Press Ctrl + Enter to run your code.
@@ -1562,83 +954,71 @@ for i in range(5):
 
 </div>
 
+<!-- ================= NOTES ================= -->
 
-<!-- =====================================================
-     NOTES
-===================================================== -->
+<div id="notes" class="section">
 
-<div
-    id="notes"
-    class="section"
->
-
-    <h2>
-        📄 Notes
-    </h2>
-
+    <h2>📄 Notes</h2>
 
     <div class="note-card">
 
         <iframe
             src="turtle_graphics_mrpycobra.pdf"
-        ></iframe>
+            title="Turtle Graphics Notes">
+        </iframe>
 
         <a
             href="turtle_graphics_mrpycobra.pdf"
             class="btn"
-            download
-        >
+            download>
             Download
         </a>
 
     </div>
-
 
     <div class="note-card">
 
         <iframe
             src="python_basics_mrpycobra.pdf"
-        ></iframe>
+            title="Python Basics Notes">
+        </iframe>
 
         <a
             href="python_basics_mrpycobra.pdf"
             class="btn"
-            download
-        >
+            download>
             Download
         </a>
 
     </div>
-
 
     <div class="note-card">
 
         <iframe
             src="fillcolor_all_argument_colors_name.pdf"
-        ></iframe>
+            title="Fillcolor Colors Guide">
+        </iframe>
 
         <a
             href="fillcolor_all_argument_colors_name.pdf"
             class="btn"
-            download
-        >
+            download>
             Download
         </a>
 
     </div>
-
 
     <div class="note-card">
 
         <iframe
             src="Turtle_Python_Fonts_Guide.pdf"
-        ></iframe>
+            title="Turtle Python Fonts Guide">
+        </iframe>
 
         <a
             href="Turtle_Python_Fonts_Guide.pdf"
             class="btn"
-            download
-        >
+            download>
             Download
         </a>
 
@@ -1646,29 +1026,37 @@ for i in range(5):
 
 </div>
 
+<!-- ================= VIDEO POPUP ================= -->
 
-<!-- =====================================================
-     VIDEO POPUP
-===================================================== -->
+<div id="popup" aria-hidden="true">
 
-<div id="popup">
-
-    <span onclick="closeVideo()">
+    <span id="closePopup" role="button" tabindex="0">
         ✖
     </span>
 
     <iframe
         id="player"
-    ></iframe>
+        title="YouTube Video"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
 
 </div>
+  <script>
 
+/* =====================================================
+   UTILITY
+===================================================== */
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
+function escapeHTML(text){
 
-<script>
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
 
 /* =====================================================
@@ -1676,14 +1064,19 @@ for i in range(5):
 ===================================================== */
 
 let isSub =
-    localStorage.getItem("subscribed")
-    ===
-    "true";
+    localStorage.getItem("subscribed") === "true";
 
 let bellOn =
-    localStorage.getItem("bell")
-    ===
-    "true";
+    localStorage.getItem("bell") === "true";
+
+const subBtn =
+    document.getElementById("subBtn");
+
+const subText =
+    document.getElementById("subText");
+
+const bell =
+    document.getElementById("bell");
 
 
 function toggleSub(){
@@ -1692,22 +1085,20 @@ function toggleSub(){
 
     localStorage.setItem(
         "subscribed",
-        isSub
+        String(isSub)
     );
-
 
     if(isSub){
 
         window.open(
             "https://www.youtube.com/@mr_py_cobra_01?sub_confirmation=1",
-            "_blank"
+            "_blank",
+            "noopener,noreferrer"
         );
 
     }
 
-
     updateUI();
-
 }
 
 
@@ -1715,75 +1106,75 @@ function ringBell(){
 
     if(!isSub){
 
-        alert(
-            "Subscribe first!"
-        );
+        alert("Subscribe first!");
 
         return;
     }
-
 
     bellOn = !bellOn;
 
     localStorage.setItem(
         "bell",
-        bellOn
+        String(bellOn)
     );
 
-
     updateUI();
-
 }
 
 
 function updateUI(){
 
-    let btn =
-        document.getElementById(
-            "subBtn"
-        );
-
-    let text =
-        document.getElementById(
-            "subText"
-        );
-
-    let bell =
-        document.getElementById(
-            "bell"
-        );
-
-
     if(isSub){
 
-        btn.classList.add(
-            "subscribed"
+        subBtn.classList.add("subscribed");
+        subText.innerText = "Subscribed";
+
+    }else{
+
+        subBtn.classList.remove("subscribed");
+        subText.innerText = "Subscribe";
+
+        bellOn = false;
+
+        localStorage.setItem(
+            "bell",
+            "false"
         );
-
-        text.innerText =
-            "Subscribed";
-
     }
-
-    else{
-
-        btn.classList.remove(
-            "subscribed"
-        );
-
-        text.innerText =
-            "Subscribe";
-
-    }
-
 
     bell.classList.toggle(
         "active",
         bellOn
     );
-
 }
 
+
+subBtn.addEventListener(
+    "click",
+    toggleSub
+);
+
+bell.addEventListener(
+    "click",
+    ringBell
+);
+
+bell.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" ||
+            event.key === " "
+        ){
+
+            event.preventDefault();
+            ringBell();
+
+        }
+
+    }
+);
 
 updateUI();
 
@@ -1792,110 +1183,128 @@ updateUI();
    YOUTUBE API
 ===================================================== */
 
+/*
+ IMPORTANT:
+ Never put a permanent YouTube API key in a public
+ website if you can avoid it.
+
+ For now this preserves your existing functionality.
+ Restrict the key in Google Cloud Console by:
+ - HTTP referrers
+ - YouTube Data API only
+*/
+
 const API_KEY =
     "AIzaSyC6otTi6DVaCjUSuSWd0Lo9Z2zyEajIuFg";
 
 const CHANNEL_ID =
     "UCGb3jgOzfQsdENrlFWRB_Bw";
 
-
 let allVideos = [];
 
 
-function animate(
-    id,
-    end
-){
+/* =====================================================
+   NUMBER ANIMATION
+===================================================== */
+
+function animate(id,end){
+
+    const el =
+        document.getElementById(id);
+
+    if(!el) return;
+
+    end = Number(end) || 0;
 
     let i = 0;
 
-    let step =
+    if(end === 0){
+
+        el.innerText = "0";
+        return;
+    }
+
+    const step =
         Math.max(
             1,
-            Math.ceil(
-                end / 100
-            )
+            Math.ceil(end / 100)
         );
 
-    let el =
-        document.getElementById(
-            id
-        );
-
-
-    let int =
+    const interval =
         setInterval(
-            () => {
+            function(){
 
                 i += step;
-
 
                 if(i >= end){
 
                     i = end;
 
-                    clearInterval(
-                        int
-                    );
-
+                    clearInterval(interval);
                 }
 
-
                 el.innerText =
-                    i;
+                    i.toLocaleString();
 
             },
             20
         );
-
 }
 
+
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
 
 async function loadDashboard(){
 
     try{
 
-        let r =
-            await fetch(
-                `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+        const url =
+            "https://www.googleapis.com/youtube/v3/channels" +
+            `?part=statistics&id=${encodeURIComponent(CHANNEL_ID)}` +
+            `&key=${encodeURIComponent(API_KEY)}`;
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+
+            throw new Error(
+                `YouTube API HTTP ${response.status}`
             );
-
-
-        let d =
-            await r.json();
-
-
-        if(
-            !d.items ||
-            !d.items.length
-        ){
-
-            console.error(
-                "YouTube channel data unavailable",
-                d
-            );
-
-            return;
         }
 
+        const data =
+            await response.json();
 
-        let s =
-            d.items[0].statistics;
+        if(
+            !data.items ||
+            !data.items.length
+        ){
 
+            throw new Error(
+                data.error?.message ||
+                "Channel data unavailable."
+            );
+        }
+
+        const statistics =
+            data.items[0].statistics;
 
         animate(
             "subs",
-            +s.subscriberCount
+            statistics.subscriberCount
         );
 
         animate(
             "views",
-            +s.viewCount
+            statistics.viewCount
         );
 
         animate(
             "totalVideos",
-            +s.videoCount
+            statistics.videoCount
         );
 
     }
@@ -1907,77 +1316,100 @@ async function loadDashboard(){
             error
         );
 
-    }
+        document.getElementById(
+            "subs"
+        ).innerText = "N/A";
 
+        document.getElementById(
+            "views"
+        ).innerText = "N/A";
+
+        document.getElementById(
+            "totalVideos"
+        ).innerText = "N/A";
+    }
 }
 
+
+/* =====================================================
+   LOAD VIDEOS
+===================================================== */
 
 async function loadVideos(){
 
     try{
 
-        let r =
-            await fetch(
-                `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=13`
+        const url =
+            "https://www.googleapis.com/youtube/v3/search" +
+            `?key=${encodeURIComponent(API_KEY)}` +
+            `&channelId=${encodeURIComponent(CHANNEL_ID)}` +
+            "&part=snippet,id" +
+            "&order=date" +
+            "&maxResults=50" +
+            "&type=video";
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+
+            throw new Error(
+                `YouTube API HTTP ${response.status}`
+            );
+        }
+
+        const data =
+            await response.json();
+
+        if(!data.items){
+
+            throw new Error(
+                data.error?.message ||
+                "Videos unavailable."
+            );
+        }
+
+        const videos =
+            data.items.filter(
+                video =>
+                    video.id &&
+                    video.id.videoId
             );
 
+        if(!videos.length){
 
-        let d =
-            await r.json();
-
-
-        if(
-            !d.items
-        ){
-
-            console.error(
-                "YouTube videos unavailable",
-                d
-            );
+            document.getElementById(
+                "videoGrid"
+            ).innerHTML =
+                `<p class="python-placeholder">
+                    No videos found.
+                </p>`;
 
             return;
         }
 
 
-        let videos =
-            d.items.filter(
-                v =>
-                    v.id &&
-                    v.id.videoId
-            );
+        /* Latest video */
 
-
-        if(
-            videos.length === 0
-        ){
-
-            return;
-        }
-
-
-        /* Latest */
-
-        let latest =
+        const latest =
             videos[0];
 
-
-        document
-            .getElementById(
-                "latestVideo"
-            )
-            .innerHTML =
+        document.getElementById(
+            "latestVideo"
+        ).innerHTML =
 
             `<iframe
-                src="https://www.youtube.com/embed/${latest.id.videoId}"
+                src="https://www.youtube.com/embed/${encodeURIComponent(latest.id.videoId)}"
+                title="${escapeHTML(latest.snippet.title)}"
+                allow="autoplay; encrypted-media"
                 allowfullscreen>
             </iframe>`;
 
 
-        /* Rest */
+        /* Remaining videos */
 
         allVideos =
             videos.slice(1);
-
 
         displayVideos(
             allVideos
@@ -1992,120 +1424,272 @@ async function loadVideos(){
             error
         );
 
-    }
+        document.getElementById(
+            "videoGrid"
+        ).innerHTML =
 
+            `<p class="python-error">
+                Unable to load YouTube videos.
+                Please check the API key and quota.
+            </p>`;
+    }
 }
 
 
-function displayVideos(vs){
+/* =====================================================
+   DISPLAY VIDEOS
+===================================================== */
 
-    let h = "";
+function displayVideos(videos){
+
+    const grid =
+        document.getElementById(
+            "videoGrid"
+        );
+
+    if(!videos.length){
+
+        grid.innerHTML =
+            `<p class="python-placeholder">
+                No matching videos found.
+            </p>`;
+
+        return;
+    }
+
+    grid.innerHTML =
+        videos.map(
+            video => {
+
+                const id =
+                    escapeHTML(
+                        video.id.videoId
+                    );
+
+                const title =
+                    escapeHTML(
+                        video.snippet.title
+                    );
+
+                const thumbnail =
+                    escapeHTML(
+                        video.snippet.thumbnails?.high?.url ||
+                        video.snippet.thumbnails?.medium?.url ||
+                        video.snippet.thumbnails?.default?.url ||
+                        ""
+                    );
+
+                return `
+                    <div
+                        class="video-card"
+                        data-video-id="${id}"
+                        role="button"
+                        tabindex="0"
+                    >
+
+                        <img
+                            src="${thumbnail}"
+                            alt="${title}"
+                            loading="lazy"
+                        >
+
+                        <div>
+                            ${title}
+                        </div>
+
+                    </div>
+                `;
+            }
+        ).join("");
+
+    grid
+        .querySelectorAll(".video-card")
+        .forEach(
+            card => {
+
+                const id =
+                    card.dataset.videoId;
+
+                card.addEventListener(
+                    "click",
+                    function(){
+                        playVideo(id);
+                    }
+                );
+
+                card.addEventListener(
+                    "keydown",
+                    function(event){
+
+                        if(
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ){
+
+                            event.preventDefault();
+                            playVideo(id);
+
+                        }
+
+                    }
+                );
+            }
+        );
+}
 
 
-    vs.forEach(
-        v => {
+/* =====================================================
+   SEARCH
+===================================================== */
 
-            h +=
+function searchVideos(query){
 
-            `<div
-                class="video-card"
-                onclick="playVideo('${v.id.videoId}')"
-            >
+    const q =
+        String(query)
+            .trim()
+            .toLowerCase();
 
-                <img
-                    src="${v.snippet.thumbnails.high.url}"
-                    alt="Video thumbnail"
-                >
+    const filtered =
+        allVideos.filter(
+            video =>
+                video.snippet.title
+                    .toLowerCase()
+                    .includes(q)
+        );
 
-                <div>
-                    ${escapeHTML(
-                        v.snippet.title
-                    )}
-                </div>
+    displayVideos(
+        filtered
+    );
+}
 
-            </div>`;
 
+document
+    .getElementById("videoSearch")
+    .addEventListener(
+        "input",
+        function(){
+            searchVideos(this.value);
         }
     );
 
 
-    document
-        .getElementById(
-            "videoGrid"
-        )
-        .innerHTML = h;
+/* =====================================================
+   VIDEO POPUP
+===================================================== */
 
-}
+const popup =
+    document.getElementById("popup");
 
-
-function searchVideos(q){
-
-    displayVideos(
-
-        allVideos.filter(
-            v =>
-                v.snippet.title
-                    .toLowerCase()
-                    .includes(
-                        q.toLowerCase()
-                    )
-        )
-
-    );
-
-}
+const player =
+    document.getElementById("player");
 
 
 function playVideo(id){
 
-    document
-        .getElementById(
-            "popup"
-        )
-        .style.display =
+    if(!id) return;
+
+    popup.style.display =
         "flex";
 
+    popup.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-    document
-        .getElementById(
-            "player"
-        )
-        .src =
-        `https://www.youtube.com/embed/${id}?autoplay=1`;
+    player.src =
+        `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1`;
 
+    document.body.style.overflow =
+        "hidden";
 }
 
 
 function closeVideo(){
 
-    document
-        .getElementById(
-            "popup"
-        )
-        .style.display =
+    popup.style.display =
         "none";
 
+    popup.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-    document
-        .getElementById(
-            "player"
-        )
-        .src =
+    player.src =
         "";
 
+    document.body.style.overflow =
+        "";
 }
 
 
+document
+    .getElementById("closePopup")
+    .addEventListener(
+        "click",
+        closeVideo
+    );
+
+
+document
+    .getElementById("closePopup")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter" ||
+                event.key === " "
+            ){
+
+                event.preventDefault();
+                closeVideo();
+
+            }
+
+        }
+    );
+
+
+popup.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === popup){
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape" &&
+            popup.style.display === "flex"
+        ){
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+/* Start YouTube data loading */
+
 loadDashboard();
 loadVideos();
-
-
-/* =====================================================
+  /* =====================================================
    PYTHON PLAYGROUND
 ===================================================== */
 
 let pyodide = null;
-
 
 const pythonEditor =
     document.getElementById(
@@ -2164,7 +1748,7 @@ const pythonStatusDot =
 
 
 /* =====================================================
-   LOAD PYTHON
+   PYTHON INITIALIZATION
 ===================================================== */
 
 async function initializePython(){
@@ -2174,10 +1758,9 @@ async function initializePython(){
         pythonStatus.innerText =
             "Loading Python...";
 
-
-        /*
-         * Official Pyodide browser runtime.
-         */
+        pythonStatusDot.classList.remove(
+            "ready"
+        );
 
         pyodide =
             await loadPyodide({
@@ -2191,17 +1774,15 @@ async function initializePython(){
         pythonStatus.innerText =
             "Python Ready";
 
-
         pythonStatusDot.classList.add(
             "ready"
         );
-
 
         pythonOutput.innerHTML =
 
             `<span class="python-success">
                 ✓ Python 3 is ready!
-                
+
                 Click "Run Python" to execute your code.
             </span>`;
 
@@ -2209,36 +1790,31 @@ async function initializePython(){
 
     catch(error){
 
+        pyodide = null;
+
         pythonStatus.innerText =
             "Python Error";
-
 
         pythonStatusDot.classList.remove(
             "ready"
         );
-
 
         pythonOutput.innerHTML =
 
             `<span class="python-error">
                 ❌ Could not load Python.
 
-                ${escapeHTML(
-                    error.toString()
-                )}
+                ${escapeHTML(error.message || error)}
 
-                Make sure you are opening this website
-                through HTTPS or a local web server.
+                Make sure the website is opened through
+                HTTPS or a local web server.
             </span>`;
-
 
         console.error(
             "Pyodide error:",
             error
         );
-
     }
-
 }
 
 
@@ -2280,22 +1856,17 @@ async function runPython(){
     }
 
 
-    /* Dynamic RUN animation */
-
     pythonRun.classList.add(
         "running"
     );
 
-
     pythonRunIcon.innerText =
         "⟳";
-
 
     pythonRunText.innerText =
         "Running...";
 
-
-    pythonOutput.innerText =
+    pythonOutput.textContent =
         "Running Python...\n";
 
 
@@ -2304,74 +1875,62 @@ async function runPython(){
 
     try{
 
-
-        /* STDOUT */
-
         pyodide.setStdout({
 
-            batched:
-                function(text){
+            batched(text){
 
-                    resultText +=
-                        text + "\n";
+                resultText +=
+                    text;
 
-                }
+            }
 
         });
 
-
-        /* STDERR */
 
         pyodide.setStderr({
 
-            batched:
-                function(text){
+            batched(text){
 
-                    resultText +=
-                        text + "\n";
+                resultText +=
+                    text;
 
-                }
+            }
 
         });
 
 
-        /* INPUT */
+        /*
+         * Pyodide's stdin callback.
+         * prompt() is used so input() works in the browser.
+         */
 
         pyodide.setStdin({
 
-            stdin:
-                function(){
+            stdin(){
 
-                    const value =
-                        window.prompt(
-                            "Python input:"
-                        );
+                const value =
+                    window.prompt(
+                        "Python input:"
+                    );
 
+                if(value === null){
 
-                    if(
-                        value === null
-                    ){
-
-                        return null;
-
-                    }
-
-
-                    return value;
+                    throw new Error(
+                        "Input cancelled."
+                    );
 
                 }
 
+                return value;
+            }
+
         });
 
-
-        /* RUN */
 
         await pyodide.runPythonAsync(
             code
         );
 
-
-        /* RESULT */
 
         if(
             resultText.trim() === ""
@@ -2383,9 +1942,7 @@ async function runPython(){
                     ✓ Program finished successfully.
                 </span>`;
 
-        }
-
-        else{
+        }else{
 
             pythonOutput.textContent =
                 resultText;
@@ -2406,23 +1963,19 @@ async function runPython(){
 
     }
 
-
     finally{
 
         pythonRun.classList.remove(
             "running"
         );
 
-
         pythonRunIcon.innerText =
             "▶";
-
 
         pythonRunText.innerText =
             "Run Python";
 
     }
-
 }
 
 
@@ -2433,7 +1986,7 @@ pythonRun.addEventListener(
 
 
 /* =====================================================
-   CLEAR PYTHON
+   CLEAR
 ===================================================== */
 
 pythonClear.addEventListener(
@@ -2443,85 +1996,91 @@ pythonClear.addEventListener(
         pythonEditor.value =
             "";
 
-
         pythonOutput.innerHTML =
 
             `<span class="python-placeholder">
                 Python output will appear here...
             </span>`;
 
-
         pythonClear.animate(
 
             [
-
                 {
-                    transform:
-                        "scale(1)"
+                    transform:"scale(1)"
                 },
-
                 {
-                    transform:
-                        "scale(.88)"
+                    transform:"scale(.88)"
                 },
-
                 {
-                    transform:
-                        "scale(1.07)"
+                    transform:"scale(1.07)"
                 },
-
                 {
-                    transform:
-                        "scale(1)"
+                    transform:"scale(1)"
                 }
-
             ],
 
             {
-                duration:
-                    350
+                duration:350
             }
-
         );
-
     }
 );
 
 
 /* =====================================================
-   COPY PYTHON
+   COPY
 ===================================================== */
 
 pythonCopy.addEventListener(
     "click",
     async function(){
 
+        const code =
+            pythonEditor.value;
+
         try{
 
-            await navigator.clipboard.writeText(
-                pythonEditor.value
-            );
+            if(
+                navigator.clipboard &&
+                window.isSecureContext
+            ){
+
+                await navigator.clipboard.writeText(
+                    code
+                );
+
+            }else{
+
+                pythonEditor.focus();
+                pythonEditor.select();
+
+                document.execCommand(
+                    "copy"
+                );
+
+                pythonEditor.setSelectionRange(
+                    code.length,
+                    code.length
+                );
+
+            }
 
         }
 
         catch(error){
 
-            pythonEditor.select();
-
-            document.execCommand(
-                "copy"
+            console.error(
+                "Copy error:",
+                error
             );
 
-            window.getSelection()
-                .removeAllRanges();
-
+            return;
         }
 
 
         pythonCopy.classList.add(
             "copied"
         );
-
 
         pythonCopy.innerHTML =
             "✓ <span>Copied!</span>";
@@ -2534,14 +2093,12 @@ pythonCopy.addEventListener(
                     "copied"
                 );
 
-
                 pythonCopy.innerHTML =
                     "📋 <span>Copy</span>";
 
             },
             1500
         );
-
     }
 );
 
@@ -2552,11 +2109,9 @@ pythonCopy.addEventListener(
 
 const pythonExamples = {
 
-
     hello:
 `print("Hello, World!")
 print("Welcome to MR.PY-COBRA!")`,
-
 
     calculator:
 `a = float(input("Enter first number: "))
@@ -2567,11 +2122,9 @@ print("Difference =", a - b)
 print("Product =", a * b)
 print("Division =", a / b)`,
 
-
     loop:
 `for i in range(1, 11):
     print(i)`,
-
 
     function:
 `def greet(name):
@@ -2581,7 +2134,6 @@ name = input("Enter your name: ")
 
 print(greet(name))`,
 
-
     list:
 `numbers = [10, 20, 30, 40, 50]
 
@@ -2590,7 +2142,6 @@ print("Original:", numbers)
 numbers.append(60)
 
 print("Updated:", numbers)`,
-
 
     input:
 `name = input("What is your name? ")
@@ -2612,12 +2163,8 @@ function loadPythonExample(){
     const selected =
         pythonExample.value;
 
-
     pythonEditor.value =
-        pythonExamples[
-            selected
-        ];
-
+        pythonExamples[selected] || "";
 
     pythonOutput.innerHTML =
 
@@ -2625,7 +2172,6 @@ function loadPythonExample(){
             Example loaded.
             Click "Run Python".
         </span>`;
-
 }
 
 
@@ -2642,22 +2188,16 @@ pythonExample.addEventListener(
 
 
 /* =====================================================
-   TAB SUPPORT + CTRL ENTER
+   TAB + CTRL ENTER
 ===================================================== */
 
 pythonEditor.addEventListener(
     "keydown",
     function(event){
 
-
-        /* TAB */
-
-        if(
-            event.key === "Tab"
-        ){
+        if(event.key === "Tab"){
 
             event.preventDefault();
-
 
             const start =
                 this.selectionStart;
@@ -2665,33 +2205,16 @@ pythonEditor.addEventListener(
             const end =
                 this.selectionEnd;
 
-
             this.value =
-
-                this.value.substring(
-                    0,
-                    start
-                )
-
-                +
-
-                "    "
-
-                +
-
-                this.value.substring(
-                    end
-                );
-
+                this.value.substring(0,start) +
+                "    " +
+                this.value.substring(end);
 
             this.selectionStart =
                 this.selectionEnd =
                 start + 4;
-
         }
 
-
-        /* CTRL + ENTER */
 
         if(
             event.ctrlKey &&
@@ -2709,13 +2232,11 @@ pythonEditor.addEventListener(
 
 
 /* =====================================================
-   PYTHON BUTTON RIPPLE
+   BUTTON RIPPLE
 ===================================================== */
 
 document
-    .querySelectorAll(
-        ".py-btn"
-    )
+    .querySelectorAll(".py-btn")
     .forEach(
         function(button){
 
@@ -2728,14 +2249,11 @@ document
                             "span"
                         );
 
-
                     ripple.className =
                         "py-ripple";
 
-
                     const rect =
                         button.getBoundingClientRect();
-
 
                     const size =
                         Math.max(
@@ -2743,41 +2261,29 @@ document
                             rect.height
                         );
 
-
                     ripple.style.width =
                         size + "px";
-
 
                     ripple.style.height =
                         size + "px";
 
-
                     ripple.style.left =
-
                         (
                             event.clientX -
                             rect.left -
                             size / 2
-                        )
-                        +
-                        "px";
-
+                        ) + "px";
 
                     ripple.style.top =
-
                         (
                             event.clientY -
                             rect.top -
                             size / 2
-                        )
-                        +
-                        "px";
-
+                        ) + "px";
 
                     button.appendChild(
                         ripple
                     );
-
 
                     setTimeout(
                         function(){
@@ -2787,56 +2293,21 @@ document
                         },
                         600
                     );
-
                 }
             );
-
         }
     );
-
-
-/* =====================================================
-   ESCAPE HTML
+  /* =====================================================
+   INDIAN TRICOLOUR BACKGROUND
 ===================================================== */
 
-function escapeHTML(text){
+const canvas =
+    document.getElementById(
+        "bgAnimation"
+    );
 
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =====================================================
-   🇮🇳 INDIAN TRICOLOUR DYNAMIC BACKGROUND
-===================================================== */
-
-const c = document.getElementById("bgAnimation");
-const ctx = c.getContext("2d");
+const ctx =
+    canvas.getContext("2d");
 
 const tricolor = [
     "#FF9933",
@@ -2844,140 +2315,270 @@ const tricolor = [
     "#138808"
 ];
 
+
 function resizeCanvas(){
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
 }
+
 
 resizeCanvas();
 
-window.addEventListener("resize", resizeCanvas);
 
-let mouse = {
-    x: -1000,
-    y: -1000
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+const mouse = {
+    x:-1000,
+    y:-1000
 };
 
-window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
+
+window.addEventListener(
+    "mousemove",
+    function(event){
+
+        mouse.x =
+            event.clientX;
+
+        mouse.y =
+            event.clientY;
+    }
+);
+
+
+window.addEventListener(
+    "mouseleave",
+    function(){
+
+        mouse.x = -1000;
+        mouse.y = -1000;
+
+    }
+);
+
 
 let particles = [];
 
-for(let i = 0; i < 120; i++){
 
-    particles.push({
-        x: Math.random() * c.width,
-        y: Math.random() * c.height,
+function createParticle(
+    x = Math.random() * canvas.width,
+    y = Math.random() * canvas.height
+){
 
-        dx: (Math.random() - 0.5),
-        dy: (Math.random() - 0.5),
+    return {
 
-        size: Math.random() * 1.5 + 1,
+        x:x,
+        y:y,
+
+        dx:
+            (Math.random() - 0.5) *
+            0.7,
+
+        dy:
+            (Math.random() - 0.5) *
+            0.7,
+
+        size:
+            Math.random() * 1.5 + 1,
 
         color:
             tricolor[
                 Math.floor(
-                    Math.random() * tricolor.length
+                    Math.random() *
+                    tricolor.length
                 )
             ]
-    });
+
+    };
+}
+
+
+for(
+    let i = 0;
+    i < 120;
+    i++
+){
+
+    particles.push(
+        createParticle()
+    );
 
 }
 
-function hexToRGBA(hex, alpha){
+
+/* =====================================================
+   HEX → RGBA
+===================================================== */
+
+function hexToRGBA(
+    hex,
+    alpha
+){
 
     const value =
-        parseInt(hex.substring(1), 16);
+        parseInt(
+            hex.substring(1),
+            16
+        );
 
-    const r = (value >> 16) & 255;
-    const g = (value >> 8) & 255;
-    const b = value & 255;
+    const r =
+        (value >> 16) & 255;
 
-    return `rgba(${r},${g},${b},${alpha})`;
+    const g =
+        (value >> 8) & 255;
+
+    const b =
+        value & 255;
+
+    return `
+        rgba(
+            ${r},
+            ${g},
+            ${b},
+            ${alpha}
+        )
+    `;
 }
 
-function draw(){
 
-    /* BLACK BACKGROUND */
+/* =====================================================
+   BACKGROUND DRAW
+===================================================== */
 
-    ctx.fillStyle = "#000000";
+function drawBackground(){
+
+    ctx.fillStyle =
+        "#000000";
 
     ctx.fillRect(
         0,
         0,
-        c.width,
-        c.height
+        canvas.width,
+        canvas.height
     );
 
 
-    /* PARTICLES */
+    /* Move particles */
 
-    particles.forEach(p => {
+    particles.forEach(
+        function(p){
 
-        p.x += p.dx;
-        p.y += p.dy;
+            p.x += p.dx;
+            p.y += p.dy;
 
-        if(p.x < 0 || p.x > c.width)
-            p.dx *= -1;
 
-        if(p.y < 0 || p.y > c.height)
-            p.dy *= -1;
+            if(
+                p.x < 0 ||
+                p.x > canvas.width
+            ){
 
-        const md =
-            Math.hypot(
-                p.x - mouse.x,
-                p.y - mouse.y
+                p.dx *= -1;
+
+            }
+
+
+            if(
+                p.y < 0 ||
+                p.y > canvas.height
+            ){
+
+                p.dy *= -1;
+
+            }
+
+
+            const mouseDistance =
+                Math.hypot(
+                    p.x - mouse.x,
+                    p.y - mouse.y
+                );
+
+
+            if(
+                mouseDistance < 120
+            ){
+
+                p.x +=
+                    (
+                        mouse.x - p.x
+                    ) * 0.02;
+
+                p.y +=
+                    (
+                        mouse.y - p.y
+                    ) * 0.02;
+
+            }
+
+
+            /* Particle */
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
             );
 
-        if(md < 120){
+            ctx.fillStyle =
+                p.color;
 
-            p.x +=
-                (mouse.x - p.x) * 0.02;
+            ctx.shadowBlur =
+                8;
 
-            p.y +=
-                (mouse.y - p.y) * 0.02;
+            ctx.shadowColor =
+                p.color;
+
+            ctx.fill();
+
+            ctx.shadowBlur =
+                0;
 
         }
-
-        ctx.beginPath();
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fillStyle = p.color;
-
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color;
-
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
-
-    });
+    );
 
 
-    /* TRICOLOUR CONNECTING LINES */
+    /* Particle connections */
 
-    particles.forEach((p1, i) => {
+    for(
+        let i = 0;
+        i < particles.length;
+        i++
+    ){
 
-        particles.forEach((p2, j) => {
+        for(
+            let j = i + 1;
+            j < particles.length;
+            j++
+        ){
 
-            if(i >= j) return;
+            const p1 =
+                particles[i];
 
-            const d =
+            const p2 =
+                particles[j];
+
+            const distance =
                 Math.hypot(
                     p1.x - p2.x,
                     p1.y - p2.y
                 );
 
-            if(d < 100){
+
+            if(
+                distance < 100
+            ){
 
                 const color =
                     tricolor[
@@ -2986,7 +2587,10 @@ function draw(){
                     ];
 
                 const opacity =
-                    (1 - d / 100) * 0.3;
+                    (
+                        1 -
+                        distance / 100
+                    ) * 0.3;
 
                 ctx.beginPath();
 
@@ -3006,228 +2610,56 @@ function draw(){
                         opacity
                     );
 
-                ctx.lineWidth = 0.7;
+                ctx.lineWidth =
+                    0.7;
 
                 ctx.stroke();
 
             }
 
-        });
-
-    });
-
-
-    /* MOUSE CONNECTIONS */
-
-    particles.forEach(p => {
-
-        const d =
-            Math.hypot(
-                p.x - mouse.x,
-                p.y - mouse.y
-            );
-
-        if(d < 120){
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                p.x,
-                p.y
-            );
-
-            ctx.lineTo(
-                mouse.x,
-                mouse.y
-            );
-
-            ctx.strokeStyle =
-                hexToRGBA(
-                    p.color,
-                    0.3
-                );
-
-            ctx.lineWidth = 1;
-
-            ctx.stroke();
-
-        }
-
-    });
-
-    requestAnimationFrame(draw);
-}
-
-draw();
-
-
-/* CLICK BURST */
-
-document.addEventListener(
-    "click",
-    e => {
-
-        for(let i = 0; i < 10; i++){
-
-            particles.push({
-
-                x: e.clientX,
-                y: e.clientY,
-
-                dx:
-                    (Math.random() - 0.5) * 4,
-
-                dy:
-                    (Math.random() - 0.5) * 4,
-
-                size:
-                    Math.random() * 1.5 + 1,
-
-                color:
-                    tricolor[
-                        Math.floor(
-                            Math.random() *
-                            tricolor.length
-                        )
-                    ]
-
-            });
-
-        }
-
-        if(particles.length > 250){
-
-            particles.splice(
-                0,
-                particles.length - 250
-            );
-
         }
 
     }
-);
 
 
-function draw(){
-
-    ctx.clearRect(
-        0,
-        0,
-        c.width,
-        c.height
-    );
-
+    /* Mouse connections */
 
     particles.forEach(
-        p => {
+        function(p){
 
-
-            p.x +=
-                p.dx;
-
-            p.y +=
-                p.dy;
-
-
-            if(
-                p.x < 0 ||
-                p.x > c.width
-            ){
-
-                p.dx *= -1;
-
-            }
-
-
-            if(
-                p.y < 0 ||
-                p.y > c.height
-            ){
-
-                p.dy *= -1;
-
-            }
-
-
-            /* Particle */
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                2,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle =
-                "#00ffcc";
-
-            ctx.fill();
-
-
-            /* Connections */
-
-            particles.forEach(
-                p2 => {
-
-                    let d =
-                        Math.hypot(
-                            p.x-p2.x,
-                            p.y-p2.y
-                        );
-
-
-                    if(
-                        d < 100
-                    ){
-
-                        ctx.strokeStyle =
-                            "rgba(0,255,204,0.1)";
-
-                        ctx.beginPath();
-
-                        ctx.moveTo(
-                            p.x,
-                            p.y
-                        );
-
-                        ctx.lineTo(
-                            p2.x,
-                            p2.y
-                        );
-
-                        ctx.stroke();
-
-                    }
-
-                }
-            );
-
-
-            /* Mouse attraction */
-
-            let md =
+            const distance =
                 Math.hypot(
-                    p.x-mouse.x,
-                    p.y-mouse.y
+                    p.x - mouse.x,
+                    p.y - mouse.y
                 );
 
 
             if(
-                md < 120
+                distance < 120
             ){
 
-                p.x +=
-                    (
-                        mouse.x-p.x
-                    ) * .02;
+                ctx.beginPath();
 
-                p.y +=
-                    (
-                        mouse.y-p.y
-                    ) * .02;
+                ctx.moveTo(
+                    p.x,
+                    p.y
+                );
+
+                ctx.lineTo(
+                    mouse.x,
+                    mouse.y
+                );
+
+                ctx.strokeStyle =
+                    hexToRGBA(
+                        p.color,
+                        0.3
+                    );
+
+                ctx.lineWidth =
+                    1;
+
+                ctx.stroke();
 
             }
 
@@ -3236,49 +2668,41 @@ function draw(){
 
 
     requestAnimationFrame(
-        draw
+        drawBackground
     );
-
 }
 
 
-draw();
+drawBackground();
 
 
 /* =====================================================
-   CLICK PARTICLE EFFECT
+   CLICK PARTICLE BURST
 ===================================================== */
 
 document.addEventListener(
     "click",
-    function(e){
+    function(event){
+
+        /*
+         * Don't create an excessive number of particles.
+         */
 
         for(
-            let i=0;
-            i<10;
+            let i = 0;
+            i < 10;
             i++
         ){
 
-            particles.push({
-
-                x:e.clientX,
-
-                y:e.clientY,
-
-                dx:
-                    (Math.random()-.5)*4,
-
-                dy:
-                    (Math.random()-.5)*4
-
-            });
+            particles.push(
+                createParticle(
+                    event.clientX,
+                    event.clientY
+                )
+            );
 
         }
 
-
-        /*
-         * Keep particle count reasonable.
-         */
 
         if(
             particles.length > 250
@@ -3292,6 +2716,20 @@ document.addEventListener(
         }
 
     }
+);
+
+
+/* =====================================================
+   PREVENT SPACE FROM SCROLLING WHEN USING BELL
+===================================================== */
+
+
+/* =====================================================
+   PAGE READY
+===================================================== */
+
+console.log(
+    "MR.PY-COBRA website loaded successfully."
 );
 
 </script>
